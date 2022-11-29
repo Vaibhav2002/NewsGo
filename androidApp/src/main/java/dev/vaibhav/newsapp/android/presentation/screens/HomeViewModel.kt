@@ -33,4 +33,8 @@ class HomeViewModel @Inject constructor(private val newsRepo: NewsRepo): ViewMod
             error = articles.exceptionOrNull()?.message
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000L), HomeScreenState())
+
+    fun onTopicChange(topic:Topic) {
+        this.topic.update { topic }
+    }
 }
