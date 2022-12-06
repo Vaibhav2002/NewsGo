@@ -9,6 +9,7 @@
 import Foundation
 import shared
 
+@available(iOS 15.0, *)
 extension HomeView{
     @MainActor class HomeViewModel:ObservableObject {
         
@@ -16,9 +17,14 @@ extension HomeView{
         
         @Published private(set) var articles = [Article]()
         
-        @Published var topic:Topic? = nil {
+        var topics = [
+                Topic.Headlines(), Topic.Sports(), Topic.Politics(),
+                Topic.Entertainment(), Topic.Technology()
+            ]
+        
+        @Published var topic:Topic = Topic.Headlines() {
             didSet{
-                (topic == nil) ? getHeadlines() : getNewsByTopic(topic:topic!)
+                (topic === Topic.Headlines()) ? getHeadlines() :getNewsByTopic(topic:topic)
             }
         }
         
@@ -26,13 +32,13 @@ extension HomeView{
             getHeadlines()
         }
         
-        func getHeadlines(){
+        private func getHeadlines(){
             newsRepo.getTopHeadlines(country:"in", completionHandler: { articles, error in
                 self.articles = articles ?? []
             })
         }
         
-        func getNewsByTopic(topic:Topic){
+        private func getNewsByTopic(topic:Topic){
             newsRepo.getNewsByTopic(
                 topic: topic,
                 completionHandler: { articles, error in

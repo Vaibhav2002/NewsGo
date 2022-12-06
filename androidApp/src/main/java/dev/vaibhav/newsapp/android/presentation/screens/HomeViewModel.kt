@@ -1,6 +1,5 @@
 package dev.vaibhav.newsapp.android.presentation.screens
 
-import androidx.compose.runtime.MutableState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
