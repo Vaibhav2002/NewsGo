@@ -2,6 +2,7 @@ plugins {
     kotlin("multiplatform")
     id("com.android.library")
     id("kotlinx-serialization")
+    id("kotlin-parcelize")
 }
 
 kotlin {
@@ -21,10 +22,11 @@ kotlin {
 
         val coroutinesVersion = "1.6.4"
         val ktorVersion = "2.1.3"
+        val kotlinXSerialization = rootProject.extra["kotlinXSerialization"]
 
         val commonMain by getting {
             dependencies{
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinXSerialization")
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
 
                 //ktor

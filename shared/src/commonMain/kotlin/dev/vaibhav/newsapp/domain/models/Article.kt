@@ -1,7 +1,9 @@
 package dev.vaibhav.newsapp.domain.models
 
 import kotlinx.datetime.LocalDateTime
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Article(
     val author: String,
     val content: String,

@@ -6,6 +6,7 @@ import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -14,17 +15,18 @@ fun AppBar(
     title:String,
     isBackEnabled:Boolean = false,
     scrollBehavior: TopAppBarScrollBehavior,
+    textStyle:TextStyle = MaterialTheme.typography.displaySmall,
     onBackPress:()->Unit = {}
 ) {
     LargeTopAppBar(
-        title = { Text(text = title, style = MaterialTheme.typography.displaySmall) },
+        title = { Text(text = title, style = textStyle) },
         modifier = modifier,
         navigationIcon = {
             if(isBackEnabled)
                 Icon(
                     imageVector = Icons.Rounded.ArrowBack,
                     contentDescription = "Back",
-                    modifier = modifier.clickable { onBackPress() }
+                    modifier = Modifier.clickable { onBackPress() }
                 )
         },
         scrollBehavior = scrollBehavior

@@ -1,6 +1,9 @@
 ext{
     set("hiltVersion", "2.44")
     set("lifecycleVersion", "2.5.1")
+    set("composeVersion", "1.3.1")
+    set("navVersion", "2.5.3")
+    set("kotlinXSerialization", "1.4.1")
 }
 
 plugins {

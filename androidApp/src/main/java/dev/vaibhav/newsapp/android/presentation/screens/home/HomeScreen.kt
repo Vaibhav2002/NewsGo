@@ -1,44 +1,33 @@
-package dev.vaibhav.newsapp.android.presentation.screens
+package dev.vaibhav.newsapp.android.presentation.screens.home
 
-import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.ChipDefaults
-import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import dev.vaibhav.newsapp.android.presentation.components.AppBar
 import dev.vaibhav.newsapp.android.presentation.components.NewsItem
-import dev.vaibhav.newsapp.android.presentation.theme.shapes
 import dev.vaibhav.newsapp.domain.Topic
 import dev.vaibhav.newsapp.domain.models.Article
-import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = viewModel()
+    viewModel: HomeViewModel = hiltViewModel(),
+    navigateToDetail:(Article)->Unit
 ) {
     val state by viewModel.uiState.collectAsState()
-    val scaffoldState = rememberScaffoldState()
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     Scaffold(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -49,7 +38,8 @@ fun HomeScreen(
                 .fillMaxSize()
                 .padding(it),
             viewModel = viewModel,
-            state = state
+            state = state,
+            onArticleClick = navigateToDetail
         )
     }
 }
@@ -59,7 +49,8 @@ fun HomeScreen(
 fun HomeScreenContent(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel,
-    state: HomeScreenState
+    state: HomeScreenState,
+    onArticleClick:(Article)->Unit
 ) {
     LazyColumn(
         modifier = modifier,
@@ -77,7 +68,7 @@ fun HomeScreenContent(
         items(state.articles, key = Article::title) {
             NewsItem(
                 article = it,
-                onClick = { },
+                onClick = onArticleClick,
                 modifier = Modifier
                     .fillMaxWidth()
                     .animateItemPlacement(tween(durationMillis = 500))
