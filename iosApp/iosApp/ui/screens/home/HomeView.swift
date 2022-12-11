@@ -13,17 +13,22 @@ import shared
 struct HomeView: View {
     
     @StateObject var viewModel = HomeViewModel()
+    @State var isArticleSelected = false
+    @State var selectedArticle:Article? = nil
     
     var body: some View {
         NavigationView{
             ScrollView{
                 VStack{
-                    TopicList(topics: viewModel.topics, selectedTopic: viewModel.topic) { selectedTopic in
-                        viewModel.topic = selectedTopic
-                    }.padding(.leading, 16)
-                        .padding(.vertical, 16)
+                    NavigationLink(
+                        destination:ArticleView(article: selectedArticle),
+                        isActive: $isArticleSelected
+                    ){ EmptyView() }
+                    TopicList(topics: viewModel.topics, selectedTopic: $viewModel.topic)
+                        .padding([.leading, .vertical], 16)
                     ArticlesList(articles: viewModel.articles) { article in
-                        
+                        isArticleSelected = true
+                        selectedArticle = article
                     }
                 }
             }.navigationTitle(viewModel.topic.topic)
@@ -40,17 +45,16 @@ struct ArticlesList : View {
     var body:some View{
             LazyVStack{
                 ForEach(articles, id: \.url){ article in
-                    NewsItem(news: article)
+                    NewsItem(news: article, onArticleClick: onArticleClick)
                     
                     if article != articles.last {
                         Spacer()
                             .frame(height: 16)
-                        Divider()
                         Spacer()
                             .frame(height: 16)
                     }
                 }
-            }
+            }.listRowSeparator(.visible)
         
     }
 }
@@ -59,15 +63,14 @@ struct ArticlesList : View {
 struct TopicList : View{
     
     var topics:[Topic]
-    var selectedTopic:Topic
-    var onSelect:(Topic) -> Void
+    @Binding var selectedTopic:Topic
     
     var body: some View{
         ScrollView(.horizontal, showsIndicators: false){
             LazyHStack{
                 ForEach(topics, id: \.topic){ topic in
                     TopicItem(topic: topic, isSelected: topic == selectedTopic){
-                        onSelect(topic)
+                        selectedTopic = topic
                     }
                     Spacer().frame(width: 8,height:0)
                 }

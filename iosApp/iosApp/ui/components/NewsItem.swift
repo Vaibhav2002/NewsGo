@@ -13,6 +13,7 @@ import shared
 struct NewsItem: View {
     
     let news:Article
+    let onArticleClick:(Article) -> Void
     
     var body: some View {
         VStack{
@@ -52,7 +53,7 @@ struct NewsItem: View {
                     .font(.caption2)
             }
             
-        }
+        }.onTapGesture { onArticleClick(news) }
         
     }
 }

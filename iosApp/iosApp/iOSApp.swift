@@ -6,6 +6,7 @@ struct iOSApp: App {
 	var body: some Scene {
 		WindowGroup {
 			HomeView()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
 		}
 	}
 }
