@@ -3,6 +3,7 @@ plugins {
     id("com.android.library")
     id("kotlinx-serialization")
     id("kotlin-parcelize")
+    id("com.squareup.sqldelight")
 }
 
 kotlin {
@@ -23,6 +24,7 @@ kotlin {
         val coroutinesVersion = "1.6.4"
         val ktorVersion = "2.1.3"
         val kotlinXSerialization = rootProject.extra["kotlinXSerialization"]
+        val sqlDelightVersion = rootProject.extra["sqlDelightVersion"]
 
         val commonMain by getting {
             dependencies{
@@ -34,6 +36,10 @@ kotlin {
                 implementation("io.ktor:ktor-client-logging:$ktorVersion")
                 implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+
+                //sqlDelight
+                implementation("com.squareup.sqldelight:runtime:$sqlDelightVersion")
+                implementation("com.squareup.sqldelight:coroutines-extensions:$sqlDelightVersion")
 
             }
         }
@@ -48,6 +54,9 @@ kotlin {
         val androidMain by getting {
             dependencies{
                 implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
+
+                //sqlDelight
+                implementation("com.squareup.sqldelight:android-driver:$sqlDelightVersion")
             }
         }
         val androidTest by getting
@@ -63,6 +72,9 @@ kotlin {
 
             dependencies {
                 implementation("io.ktor:ktor-client-darwin:$ktorVersion")
+
+                //sqlDelight
+                implementation("com.squareup.sqldelight:native-driver:$sqlDelightVersion")
             }
         }
         val iosX64Test by getting
@@ -74,6 +86,13 @@ kotlin {
             iosArm64Test.dependsOn(this)
             iosSimulatorArm64Test.dependsOn(this)
         }
+    }
+}
+
+sqldelight {
+    database("NewsDatabase") {
+        packageName = "dev.vaibhav.newsapp.database"
+        sourceFolders = listOf("sqldelight")
     }
 }
 

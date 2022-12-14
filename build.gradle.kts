@@ -4,10 +4,12 @@ ext{
     set("composeVersion", "1.3.1")
     set("navVersion", "2.5.3")
     set("kotlinXSerialization", "1.4.1")
+    set("sqlDelightVersion", "1.5.4")
 }
 
 plugins {
     val kotlinVersion = "1.7.20"
+    val sqlDelightVersion = "1.5.4"
 
     //trick: for the same plugin versions in all sub-modules
     id("com.android.application").version("7.3.1").apply(false)
@@ -16,6 +18,7 @@ plugins {
     kotlin("multiplatform").version(kotlinVersion).apply(false)
     kotlin("plugin.serialization").version(kotlinVersion)
     id("com.google.dagger.hilt.android").version("2.44").apply(false)
+    id("com.squareup.sqldelight").version(sqlDelightVersion).apply(false)
 }
 
 tasks.register("clean", Delete::class) {

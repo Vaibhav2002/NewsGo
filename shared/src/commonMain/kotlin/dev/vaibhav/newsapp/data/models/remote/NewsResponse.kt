@@ -1,4 +1,4 @@
-package dev.vaibhav.newsapp.data.models
+package dev.vaibhav.newsapp.data.models.remote
 
 
 import kotlinx.serialization.SerialName

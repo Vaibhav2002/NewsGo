@@ -7,11 +7,11 @@ import kotlin.test.assertTrue
 
 class NewsDataSourceTest {
 
-    private lateinit var dataSource: NewsDataSource
+    private lateinit var dataSource: NewsRemoteDataSource
 
     @BeforeTest
     fun setUp() {
-        dataSource = NewsDataSource()
+        dataSource = NewsRemoteDataSource()
     }
 
     @Test

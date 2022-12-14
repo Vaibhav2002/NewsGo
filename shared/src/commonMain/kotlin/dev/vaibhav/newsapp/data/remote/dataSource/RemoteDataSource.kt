@@ -7,11 +7,9 @@ import io.ktor.client.call.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.logging.*
 import io.ktor.client.request.*
-import io.ktor.client.statement.*
 import io.ktor.serialization.kotlinx.json.*
-import kotlinx.serialization.Serializable
 
-abstract class BaseDataSource {
+abstract class RemoteDataSource {
 
     val baseUrl = BASE_URL
     val apiKey = API_KEY

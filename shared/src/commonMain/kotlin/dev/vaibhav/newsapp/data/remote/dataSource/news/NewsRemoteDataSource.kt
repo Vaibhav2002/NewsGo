@@ -1,10 +1,9 @@
 package dev.vaibhav.newsapp.data.remote.dataSource.news
 
-import dev.vaibhav.newsapp.data.models.NewsResponse
-import dev.vaibhav.newsapp.data.remote.dataSource.BaseDataSource
-import dev.vaibhav.newsapp.domain.Topic
+import dev.vaibhav.newsapp.data.models.remote.NewsResponse
+import dev.vaibhav.newsapp.data.remote.dataSource.RemoteDataSource
 
-class NewsDataSource : BaseDataSource() {
+class NewsRemoteDataSource : RemoteDataSource() {
 
     companion object {
         private const val TOP_HEADLINE = "top-headlines"
