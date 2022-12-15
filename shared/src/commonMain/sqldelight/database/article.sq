@@ -1,31 +1,34 @@
-CREATE TABLE article_entity(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+CREATE TABLE ArticleEntity(
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     author TEXT,
     content TEXT,
     description TEXT,
-    published_at TEXT,
+    published_at TEXT NOT NULL,
     source TEXT,
     title TEXT,
-    url TEXT,
+    url TEXT NOT NULL,
     image_url TEXT,
-    topic TEXT
+    topic TEXT NOT NULL
 );
 
 getAllArticles:
-SELECT * FROM article_entity;
+SELECT * FROM ArticleEntity;
 
 getArticleById:
-SELECT * FROM article_entity WHERE id = ?;
+SELECT * FROM ArticleEntity WHERE id = ?;
 
 deleteArticleById:
-DELETE FROM article_entity WHERE id = ?;
+DELETE FROM ArticleEntity WHERE id = ?;
+
+deleteArticlesByType:
+DELETE FROM ArticleEntity WHERE topic = ?;
 
 deleteAll:
-DELETE FROM article_entity;
+DELETE FROM ArticleEntity;
 
 insertArticle:
 INSERT OR REPLACE
-INTO article_entity(
+INTO ArticleEntity(
     id,
     author,
     content,
@@ -36,4 +39,4 @@ INTO article_entity(
     url,
     image_url,
     topic
-) VALUES (?,?,?,?,?,?,?,?,?, ?);
+) VALUES ?;

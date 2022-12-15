@@ -1,21 +1,20 @@
 package dev.vaibhav.newsapp.domain.mappers
 
-import dev.vaibhav.newsapp.data.models.local.ArticleEntity
+import database.ArticleEntity
 import dev.vaibhav.newsapp.domain.Topic
 import dev.vaibhav.newsapp.domain.models.Article
-import dev.vaibhav.newsapp.domain.models.Source
 import dev.vaibhav.newsapp.utils.DateTimeUtil
 import dev.vaibhav.newsapp.utils.Serializer
 
 fun ArticleEntity.toArticle() = Article(
-    author = author,
-    content = content,
-    description = description,
-    timeStamp = DateTimeUtil.toLocalDateTime(publishedAt),
+    author = author ?: "",
+    content = content ?: "",
+    description = description ?: "",
+    timeStamp = DateTimeUtil.toLocalDateTime(published_at),
     source = source?.let(Serializer::deserialize),
-    title = title,
+    title = title ?: "",
     url = url,
-    urlToImage = urlToImage,
+    urlToImage = image_url ?: "",
     topic = Topic.fromTopic(topic)
 )
 

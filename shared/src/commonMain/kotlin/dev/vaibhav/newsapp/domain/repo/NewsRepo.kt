@@ -5,9 +5,12 @@ import dev.vaibhav.newsapp.domain.models.Article
 
 interface NewsRepo {
 
-    suspend fun getTopHeadlines(country:String):List<Article>
+    suspend fun fetchAllArticles()
+    suspend fun fetchTopHeadlines(country:String)
 
-    suspend fun getNewsByTopic(topic: Topic):List<Article>
+    suspend fun fetchNewsByTopic(topic: Topic)
 
-    suspend fun searchNews(query:String):List<Article>
+    suspend fun observeArticlesByTopic(topic: Topic, block:(List<Article>)->Unit)
+
+//    suspend fun searchNews(query:String):List<Article>
 }

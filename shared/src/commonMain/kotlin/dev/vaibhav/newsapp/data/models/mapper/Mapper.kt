@@ -1,8 +1,7 @@
 package dev.vaibhav.newsapp.data.models.mapper
 
-import dev.vaibhav.newsapp.data.models.local.ArticleEntity
+import database.ArticleEntity
 import dev.vaibhav.newsapp.data.models.remote.ArticleDto
-import dev.vaibhav.newsapp.data.models.remote.SourceDto
 import dev.vaibhav.newsapp.domain.Topic
 import dev.vaibhav.newsapp.utils.Serializer
 
@@ -10,12 +9,13 @@ fun ArticleDto.toArticleEntity(topic:Topic) = ArticleEntity(
     author = author ?: "",
     content = content ?: "",
     description = description ?: "",
-    publishedAt = publishedAt,
+    published_at = publishedAt,
     source = source?.let(Serializer::serialize),
     title = title ?: "",
     url = url ?: "",
-    urlToImage = urlToImage ?: "",
-    topic = topic.topic
+    image_url = urlToImage ?: "",
+    topic = topic.topic,
+    id = 0
 )
 
 fun List<ArticleDto>.toArticlesEntities(topic: Topic) = map { it.toArticleEntity(topic) }
