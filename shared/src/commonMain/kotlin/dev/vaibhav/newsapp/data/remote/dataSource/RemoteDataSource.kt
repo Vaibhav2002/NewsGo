@@ -11,10 +11,10 @@ import io.ktor.serialization.kotlinx.json.*
 
 abstract class RemoteDataSource {
 
-    val baseUrl = BASE_URL
-    val apiKey = API_KEY
+    protected val baseUrl = BASE_URL
+    protected val apiKey = API_KEY
 
-    val client = HttpClient() {
+    protected val client = HttpClient() {
         install(Logging){
             level = LogLevel.ALL
         }
@@ -23,7 +23,7 @@ abstract class RemoteDataSource {
         }
     }
 
-    suspend inline fun <reified T> get(
+    protected suspend inline fun <reified T> get(
         url: String,
         crossinline builder: HttpRequestBuilder.() -> Unit
     ): T = api {
