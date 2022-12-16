@@ -36,6 +36,7 @@ fun ArticleScreen(
 ) {
     val scrollState = rememberScrollState()
     Scaffold(
+        modifier = modifier,
         topBar = {
             ArticleCover(
                 modifier = Modifier
@@ -64,11 +65,18 @@ fun ArticleDetailContent(
 ) {
     val uriHandler = LocalUriHandler.current
     val content = buildAnnotatedString {
-        append(article.content.substringBeforeLast("["))
+        withStyle(
+            style = SpanStyle(
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+        ){
+            append(article.content.substringBeforeLast("["))
+        }
+
         pushStringAnnotation("Read More", annotation = "Read More")
         withStyle(
             style = SpanStyle(
-                color = Color.Blue,
+                color = MaterialTheme.colorScheme.tertiary,
                 fontWeight = FontWeight.Bold,
                 textDecoration = TextDecoration.Underline
             )
