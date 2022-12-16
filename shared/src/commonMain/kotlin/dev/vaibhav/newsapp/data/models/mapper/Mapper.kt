@@ -3,14 +3,15 @@ package dev.vaibhav.newsapp.data.models.mapper
 import database.ArticleEntity
 import dev.vaibhav.newsapp.data.models.remote.ArticleDto
 import dev.vaibhav.newsapp.domain.Topic
-import dev.vaibhav.newsapp.utils.Serializer
+import dev.vaibhav.newsapp.utils.serialize.SourceSerializer
 
+val sourceSerializer = SourceSerializer()
 fun ArticleDto.toArticleEntity(topic:Topic) = ArticleEntity(
     author = author ?: "",
     content = content ?: "",
     description = description ?: "",
     published_at = publishedAt,
-    source = source?.let(Serializer::serialize),
+    source = source?.let(sourceSerializer::serialize),
     title = title ?: "",
     url = url ?: "",
     image_url = urlToImage ?: "",

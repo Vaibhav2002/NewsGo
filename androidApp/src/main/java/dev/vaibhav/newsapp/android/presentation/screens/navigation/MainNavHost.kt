@@ -12,9 +12,8 @@ import dev.vaibhav.newsapp.android.presentation.screens.detail.ArticleScreen
 import dev.vaibhav.newsapp.android.presentation.screens.home.HomeScreen
 import dev.vaibhav.newsapp.android.presentation.screens.navigation.Screens.ArticleDetail
 import dev.vaibhav.newsapp.android.presentation.screens.navigation.Screens.Home
-import dev.vaibhav.newsapp.android.presentation.screens.navigation.type.JsonParamType
 import dev.vaibhav.newsapp.domain.models.Article
-import dev.vaibhav.newsapp.utils.Serializer
+import dev.vaibhav.newsapp.utils.serialize.JsonSerializer
 
 @Composable
 fun MainNavHost(
@@ -36,7 +35,7 @@ fun MainNavHost(
             arguments = listOf(navArgument("article") { type = NavType.StringType })
         ) {
             val article = it.arguments?.getString("article")?.let {
-                Serializer.deserialize<Article>(it)
+                JsonSerializer.deserialize<Article>(it)
             } ?: return@composable
             ArticleScreen(article = article, modifier = Modifier.fillMaxSize())
         }
