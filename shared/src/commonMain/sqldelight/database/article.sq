@@ -1,5 +1,5 @@
 CREATE TABLE ArticleEntity(
-    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     author TEXT,
     content TEXT,
     description TEXT,
@@ -13,6 +13,9 @@ CREATE TABLE ArticleEntity(
 
 getAllArticles:
 SELECT * FROM ArticleEntity;
+
+getArticlesByTopic:
+SELECT * FROM ArticleEntity WHERE topic = ?;
 
 getArticleById:
 SELECT * FROM ArticleEntity WHERE id = ?;
@@ -39,4 +42,4 @@ INTO ArticleEntity(
     url,
     image_url,
     topic
-) VALUES ?;
+) VALUES (?,?,?,?,?,?,?,?,?,?);
