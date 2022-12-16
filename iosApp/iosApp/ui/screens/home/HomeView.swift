@@ -24,14 +24,27 @@ struct HomeView: View {
                         destination:ArticleView(article: selectedArticle),
                         isActive: $isArticleSelected
                     ){ EmptyView() }
-                    TopicList(topics: viewModel.topics, selectedTopic: $viewModel.topic)
-                        .padding([.leading, .vertical], 16)
-                    ArticlesList(articles: viewModel.articles) { article in
+                    
+                    TopicList(
+                        topics: viewModel.topics,
+                        selectedTopic: viewModel.uiState.topic,
+                        onTopicChange: { topic in viewModel.onTopicPressed(topic: topic)}
+                    ).padding([.leading, .vertical], 16)
+                    
+                    ArticlesList(articles: viewModel.uiState.articles) { article in
                         isArticleSelected = true
                         selectedArticle = article
                     }
                 }
-            }.navigationTitle(viewModel.topic.topic)
+            }
+            .navigationTitle(viewModel.uiState.topic.topic)
+            .onAppear{
+                viewModel.collectUiState()
+            }
+            .onDisappear{
+                viewModel.onDispose()
+            }
+            
         }
     }
 }
@@ -62,15 +75,16 @@ struct ArticlesList : View {
 @available(iOS 15.0, *)
 struct TopicList : View{
     
-    var topics:[Topic]
-    @Binding var selectedTopic:Topic
+    let topics:[Topic]
+    let selectedTopic:Topic
+    let onTopicChange:(Topic)->Void
     
     var body: some View{
         ScrollView(.horizontal, showsIndicators: false){
             LazyHStack{
                 ForEach(topics, id: \.topic){ topic in
                     TopicItem(topic: topic, isSelected: topic == selectedTopic){
-                        selectedTopic = topic
+                        onTopicChange(topic)
                     }
                     Spacer().frame(width: 8,height:0)
                 }

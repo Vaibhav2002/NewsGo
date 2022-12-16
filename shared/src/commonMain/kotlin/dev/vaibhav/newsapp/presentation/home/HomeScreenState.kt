@@ -1,4 +1,4 @@
-package dev.vaibhav.newsapp.android.presentation.screens.home
+package dev.vaibhav.newsapp.presentation.home
 
 import dev.vaibhav.newsapp.domain.Topic
 import dev.vaibhav.newsapp.domain.models.Article

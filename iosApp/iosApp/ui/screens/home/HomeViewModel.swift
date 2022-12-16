@@ -13,39 +13,39 @@ import shared
 extension HomeView{
     @MainActor class HomeViewModel:ObservableObject {
         
-        private var newsRepo:NewsRepo = NewsRepoImpl(dataSource:NewsDataSource())
+        private let viewModel = CommonHomeViewModel(
+            newsRepo: AppModule().articleRepo,
+            scope:nil
+        )
         
-        @Published private(set) var articles = [Article]()
+        @Published var uiState = HomeScreenState(
+            articles: [],
+            topic: Topic.Headlines(),
+            isLoading: false,
+            error: nil
+        )
         
-        var topics = [
-                Topic.Headlines(), Topic.Sports(), Topic.Politics(),
-                Topic.Entertainment(), Topic.Technology()
-            ]
+        let topics = [Topic.Headlines(), Topic.Sports(),
+                      Topic.Politics(),Topic.Entertainment(),
+                      Topic.Technology()]
         
-        @Published var topic:Topic = Topic.Headlines() {
-            didSet{
-                (topic === Topic.Headlines()) ? getHeadlines() :getNewsByTopic(topic:topic)
+        private var disposableHandle:DisposableHandle?
+        
+        @MainActor
+        func collectUiState(){
+            disposableHandle = viewModel.uiState.subscribe { state in
+                if let state {
+                    self.uiState = state
+                }
             }
         }
         
-        init(){
-            getHeadlines()
+        func onTopicPressed(topic:Topic){
+            viewModel.onTopicChange(topic: topic)
         }
         
-        private func getHeadlines(){
-            newsRepo.getTopHeadlines(country:"in", completionHandler: { articles, error in
-                self.articles = articles ?? []
-            })
+        func onDispose(){
+            disposableHandle?.dispose()
         }
-        
-        private func getNewsByTopic(topic:Topic){
-            newsRepo.getNewsByTopic(
-                topic: topic,
-                completionHandler: { articles, error in
-                    self.articles =  articles ?? []
-                }
-            )
-        }
-        
     }
 }

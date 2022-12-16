@@ -3,14 +3,13 @@ package dev.vaibhav.newsapp.utils.flows
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.DisposableHandle
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 actual open class CommonFlow<T> actual constructor(flow: Flow<T>) : Flow<T> by flow {
 
-    fun subscribe(
+    private fun subscribe(
         scope: CoroutineScope,
         dispatcher: CoroutineDispatcher,
         onSubscribe: (T) -> Unit

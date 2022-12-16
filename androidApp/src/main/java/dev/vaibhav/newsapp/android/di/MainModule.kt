@@ -12,6 +12,7 @@ import dev.vaibhav.newsapp.data.remote.dataSource.news.NewsRemoteDataSource
 import dev.vaibhav.newsapp.data.repo.NewsRepoImpl
 import dev.vaibhav.newsapp.database.NewsDatabase
 import dev.vaibhav.newsapp.domain.repo.NewsRepo
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -28,9 +29,10 @@ object MainModule {
     @Provides
     fun providesLocalArticleDataSource(
         factory: DatabaseDriverFactory
-    ):ArticleLocalDataSource = ArticleLocalDataSource(NewsDatabase.invoke(factory.createDriver()))
+    ):ArticleLocalDataSource = ArticleLocalDataSource(NewsDatabase(factory.createDriver()))
 
     @Provides
+    @Singleton
     fun providesNewsRepo(
         dataSource: NewsRemoteDataSource,
         localDataSource: ArticleLocalDataSource
