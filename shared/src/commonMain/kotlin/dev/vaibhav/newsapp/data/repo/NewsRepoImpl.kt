@@ -5,7 +5,9 @@ import dev.vaibhav.newsapp.data.models.mapper.toArticlesEntities
 import dev.vaibhav.newsapp.data.models.remote.ArticleDto
 import dev.vaibhav.newsapp.data.remote.dataSource.news.NewsRemoteDataSource
 import dev.vaibhav.newsapp.domain.Topic
+import dev.vaibhav.newsapp.domain.mappers.toArticle
 import dev.vaibhav.newsapp.domain.mappers.toArticles
+import dev.vaibhav.newsapp.domain.models.Article
 import dev.vaibhav.newsapp.domain.repo.NewsRepo
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -42,7 +44,9 @@ class NewsRepoImpl(
         localDataSource.insertArticles(articles.toArticlesEntities(topic))
     }
 
-//    override suspend fun searchNews(query: String): List<Article> {
+    override suspend fun getArticleById(id: Long) = localDataSource.getArticleById(id).toArticle()
+
+    //    override suspend fun searchNews(query: String): List<Article> {
 //        return dataSource.getNewsByQuery(query).toArticlesEntities(Topic.Headlines).toArticles()
 //    }
 

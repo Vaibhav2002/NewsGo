@@ -3,6 +3,7 @@ package dev.vaibhav.newsapp.presentation.home
 import dev.vaibhav.newsapp.domain.Topic
 import dev.vaibhav.newsapp.domain.repo.NewsRepo
 import dev.vaibhav.newsapp.utils.flows.toCommonStateFlow
+import dev.vaibhav.newsapp.utils.flows.toStateFlow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -41,7 +42,7 @@ class CommonHomeViewModel(
             error = error
         )
     }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000L), HomeScreenState())
+        .toStateFlow(viewModelScope, HomeScreenState())
         .toCommonStateFlow()
 
     init {

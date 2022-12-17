@@ -22,7 +22,7 @@ fun BackButton(
     onBackPress:()->Unit
 ) {
     FilledIconButton(
-        onClick = {  },
+        onClick = onBackPress,
         colors = IconButtonDefaults.filledIconButtonColors(
             containerColor = Color.White,
             contentColor = Color.Black

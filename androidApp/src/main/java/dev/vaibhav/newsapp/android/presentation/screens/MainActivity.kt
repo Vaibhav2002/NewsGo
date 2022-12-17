@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.getValue
@@ -22,7 +23,7 @@ import dev.vaibhav.newsapp.domain.models.Article
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    @OptIn(ExperimentalAnimationApi::class)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -30,18 +31,8 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                 ) {
-                    var article by remember { mutableStateOf<Article?>(null)}
                     val navController = rememberNavController()
-                    AnimatedContent(targetState = article) {
-                        it?.let {
-                            ArticleScreen(modifier = Modifier.fillMaxSize(), article = it)
-                        } ?: kotlin.run {
-                            HomeScreen(
-                                modifier = Modifier.fillMaxSize(),
-                                navigateToDetail = { article = it }
-                            )
-                        }
-                    }
+                    MainNavHost(navController = navController, modifier = Modifier.fillMaxSize())
                 }
             }
         }

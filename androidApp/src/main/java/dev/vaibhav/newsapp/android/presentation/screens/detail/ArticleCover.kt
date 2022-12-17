@@ -24,7 +24,8 @@ import dev.vaibhav.newsapp.android.presentation.components.BackButton
 fun ArticleCover(
     image: String,
     title: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onBackPress:()->Unit
 ) {
     Box(
         modifier = modifier
@@ -60,9 +61,8 @@ fun ArticleCover(
         BackButton(
             modifier = Modifier
                 .padding(8.dp)
-                .align(Alignment.TopStart)
-        ) {
-
-        }
+                .align(Alignment.TopStart),
+            onBackPress = onBackPress
+        )
     }
 }

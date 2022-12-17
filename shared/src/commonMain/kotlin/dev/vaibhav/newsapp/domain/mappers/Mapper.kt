@@ -17,7 +17,8 @@ fun ArticleEntity.toArticle() = Article(
     title = title ?: "",
     url = url,
     urlToImage = image_url ?: "",
-    topic = Topic.fromTopic(topic)
+    topic = Topic.fromTopic(topic),
+    id = id
 )
 
 fun List<ArticleEntity>.toArticles() = map { it.toArticle() }

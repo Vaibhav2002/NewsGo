@@ -14,5 +14,7 @@ interface NewsRepo {
 
     suspend fun fetchNewsByTopic(topic: Topic)
 
+    suspend fun getArticleById(id:Long):Article
+
 //    suspend fun searchNews(query:String):List<Article>
 }
