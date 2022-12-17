@@ -12,16 +12,18 @@ import shared
 @available(iOS 15.0, *)
 struct HomeView: View {
     
-    @StateObject var viewModel = HomeViewModel()
-    @State var isArticleSelected = false
-    @State var selectedArticle:Article? = nil
+    let appModule:AppModule
+    
+    @StateObject private var viewModel = HomeViewModel()
+    @State private var isArticleSelected = false
+    @State private var selectedArticle:Article? = nil
     
     var body: some View {
         NavigationView{
             ScrollView{
                 VStack{
                     NavigationLink(
-                        destination:ArticleView(article: selectedArticle),
+                        destination:ArticleView(appModule: appModule, articleId: selectedArticle?.id ?? 0),
                         isActive: $isArticleSelected
                     ){ EmptyView() }
                     
@@ -39,6 +41,7 @@ struct HomeView: View {
             }
             .navigationTitle(viewModel.uiState.topic.topic)
             .onAppear{
+                viewModel.setAppModule(appModule: appModule)
                 viewModel.collectUiState()
             }
             .onDisappear{
@@ -93,9 +96,9 @@ struct TopicList : View{
     }
 }
 
-@available(iOS 15.0, *)
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView()
-    }
-}
+//@available(iOS 15.0, *)
+//struct HomeView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        HomeView()
+//    }
+//}

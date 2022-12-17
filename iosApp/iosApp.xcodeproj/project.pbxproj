@@ -16,6 +16,7 @@
 		80B1BD0A2933B7CF00AAA0FD /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B1BD092933B7CF00AAA0FD /* HomeViewModel.swift */; };
 		80D1890B2934EE6000330231 /* NewsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D1890A2934EE6000330231 /* NewsItem.swift */; };
 		80DCDCAC293F975100617D6C /* TopicItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DCDCAB293F975100617D6C /* TopicItem.swift */; };
+		80FA6F16294E14B000BE1838 /* ArticleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FA6F15294E14B000BE1838 /* ArticleViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -42,6 +43,7 @@
 		80B1BD092933B7CF00AAA0FD /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		80D1890A2934EE6000330231 /* NewsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsItem.swift; sourceTree = "<group>"; };
 		80DCDCAB293F975100617D6C /* TopicItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicItem.swift; sourceTree = "<group>"; };
+		80FA6F15294E14B000BE1838 /* ArticleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewModel.swift; sourceTree = "<group>"; };
 		C8FE4E1116CDBB8613235E37 /* Pods_iosApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E976C4B2F2D4B1E7D92D391B /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.debug.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
 		F8735A3F4590566DC5F82B68 /* Pods-iosApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.release.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				801DE9692945F8690045A2CF /* ArticleView.swift */,
+				80FA6F15294E14B000BE1838 /* ArticleViewModel.swift */,
 			);
 			path = article;
 			sourceTree = "<group>";
@@ -278,6 +281,7 @@
 				80D1890B2934EE6000330231 /* NewsItem.swift in Sources */,
 				80B1BD0A2933B7CF00AAA0FD /* HomeViewModel.swift in Sources */,
 				80DCDCAC293F975100617D6C /* TopicItem.swift in Sources */,
+				80FA6F16294E14B000BE1838 /* ArticleViewModel.swift in Sources */,
 				80B1BD082933B7B200AAA0FD /* HomeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

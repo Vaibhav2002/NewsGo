@@ -12,25 +12,34 @@ import shared
 @available(iOS 15.0, *)
 struct ArticleView: View {
     
-    var article:Article?
+    let appModule:AppModule
+    let articleId:Int64
+    
+    @StateObject private var viewModel = ArticleViewModel()
     
     var body: some View {
+        var uiState = viewModel.uiState
         VStack{
-            ArticleCover(title:article?.title ?? "", image:article?.urlToImage ?? "")
+            ArticleCover(title:uiState.title, image:uiState.image)
                 .cornerRadius(8)
-            Text(article?.description_ ?? "")
+            Text(uiState.description_)
                 .font(.callout)
                 .frame(maxWidth: .infinity)
                 .padding([.horizontal, .top], 8)
             Spacer().frame(height: 8)
-            Text(article?.content ?? "")
+            Text(uiState.content)
                 .font(.caption)
                 .padding(.horizontal, 8)
                 .foregroundColor(Color.gray)
         }
         .padding(4)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .navigationBarTitle(article?.title ?? "", displayMode: .inline)
+        .navigationBarTitle(uiState.title, displayMode: .inline)
+        .onAppear{
+            viewModel.setDependencies(appModule: appModule, articleId: articleId)
+            viewModel.collectUiState()
+        }
+        .onDisappear{ viewModel.dispose() }
     }
 }
 
