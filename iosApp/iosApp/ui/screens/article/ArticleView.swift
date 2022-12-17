@@ -31,6 +31,14 @@ struct ArticleView: View {
                 .font(.caption)
                 .padding(.horizontal, 8)
                 .foregroundColor(Color.gray)
+            Spacer().frame(height: 2)
+            if uiState.url != "" {
+                Link("Read More", destination: URL(string: uiState.url)!)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, 8)
+                    .font(.caption)
+            }
+            
         }
         .padding(4)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
