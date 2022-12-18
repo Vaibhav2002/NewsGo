@@ -40,7 +40,8 @@ fun HomeScreen(
                 .padding(it),
             viewModel = viewModel,
             state = state,
-            onArticleClick = navigateToDetail
+            onArticleClick = navigateToDetail,
+            onSaveClick = viewModel::onSaveClick
         )
     }
 }
@@ -51,7 +52,8 @@ fun HomeScreenContent(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel,
     state: HomeScreenState,
-    onArticleClick:(Article)->Unit
+    onArticleClick:(Article)->Unit,
+    onSaveClick:(Article)->Unit
 ) {
     LazyColumn(
         modifier = modifier,
@@ -66,10 +68,11 @@ fun HomeScreenContent(
                 modifier = Modifier.fillMaxWidth()
             )
         }
-        items(state.articles, key = Article::title) {
+        items(state.articles, key = Article::url) {
             NewsItem(
                 article = it,
                 onClick = onArticleClick,
+                onSaveClick = onSaveClick,
                 modifier = Modifier
                     .fillMaxWidth()
                     .animateItemPlacement(tween(durationMillis = 500))

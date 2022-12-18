@@ -7,6 +7,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,6 +24,7 @@ import dev.vaibhav.newsapp.utils.DateTimeUtil
 fun NewsItem(
     modifier:Modifier = Modifier,
     article: Article,
+    onSaveClick:(Article)->Unit,
     onClick:(Article)->Unit
 ) {
     ElevatedCard(
@@ -29,12 +32,21 @@ fun NewsItem(
         modifier = modifier,
         shape = RoundedCornerShape(12.dp),
     ) {
-        AsyncImage(
-            model = article.urlToImage,
-            contentDescription = "News Cover Image",
-            modifier = Modifier.fillMaxWidth(),
-            contentScale = ContentScale.Crop
-        )
+        Box(modifier = Modifier.fillMaxWidth()){
+            AsyncImage(
+                model = article.urlToImage,
+                contentDescription = "News Cover Image",
+                modifier = Modifier.fillMaxWidth(),
+                contentScale = ContentScale.Crop
+            )
+            SaveToggleButton(
+                isSaved = article.saved?.isSaved == true,
+                onClick = { onSaveClick(article) },
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .padding(end = 8.dp, top = 8.dp)
+            )
+        }
         Spacer(modifier = Modifier.height(16.dp))
         Text(
             text = article.title,
@@ -59,7 +71,9 @@ fun NewsItem(
         Spacer(modifier = Modifier.height(24.dp))
         Text(
             text = DateTimeUtil.formatDateTime(article.timeStamp),
-            modifier = Modifier.align(Alignment.End).padding(end = 16.dp),
+            modifier = Modifier
+                .align(Alignment.End)
+                .padding(end = 16.dp),
             style = MaterialTheme.typography.labelMedium,
             color = Color.Gray,
         )
