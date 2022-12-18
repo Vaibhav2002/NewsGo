@@ -4,9 +4,11 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
-object JsonSerializer{
+object JsonSerializer {
 
-    inline fun <reified T> serialize(data:T) =  Json.encodeToString<T>(data)
+    val json = Json { coerceInputValues = true }
 
-    inline fun <reified T> deserialize(data:String) = Json.decodeFromString<T>(data)
+    inline fun <reified T> serialize(data:T) =  json.encodeToString<T>(data)
+
+    inline fun <reified T> deserialize(data:String) = json.decodeFromString<T>(data)
 }

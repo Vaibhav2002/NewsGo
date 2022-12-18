@@ -1,11 +1,10 @@
 package dev.vaibhav.newsapp.utils.serialize
 
-import dev.vaibhav.newsapp.data.models.remote.SourceDto
 import dev.vaibhav.newsapp.domain.models.Source
 
-actual class SourceSerializer{
+actual class SourceSerializer:Serializer<Source>{
 
-    actual fun serialize(source: SourceDto) = JsonSerializer.serialize(source)
+    actual override fun serialize(data: Source) = JsonSerializer.serialize(data)
 
-    actual fun deSerialize(source: String) = JsonSerializer.deserialize<Source>(source)
+    actual override fun deSerialize(data: String) = JsonSerializer.deserialize<Source>(data)
 }

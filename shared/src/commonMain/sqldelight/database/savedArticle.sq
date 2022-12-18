@@ -1,0 +1,33 @@
+CREATE TABLE SavedArticle(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    author TEXT,
+    content TEXT,
+    description TEXT,
+    published_at TEXT NOT NULL,
+    source TEXT,
+    title TEXT,
+    url TEXT NOT NULL,
+    image_url TEXT,
+    topic TEXT NOT NULL
+);
+
+getAllSavedArticles:
+SELECT * FROM SavedArticle;
+
+insertArticle:
+INSERT OR REPLACE
+INTO SavedArticle(
+    id,
+    author,
+    content,
+    description,
+    published_at,
+    source,
+    title,
+    url,
+    image_url,
+    topic
+) VALUES (?,?,?,?,?,?,?,?,?,?);
+
+removeArticle:
+DELETE FROM SavedArticle WHERE id = ?;

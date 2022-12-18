@@ -9,17 +9,26 @@ import dev.vaibhav.newsapp.domain.mappers.toArticle
 import dev.vaibhav.newsapp.domain.mappers.toArticles
 import dev.vaibhav.newsapp.domain.models.Article
 import dev.vaibhav.newsapp.domain.repo.NewsRepo
+import dev.vaibhav.newsapp.domain.repo.SavedNewsRepo
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.supervisorScope
 
 class NewsRepoImpl(
     private val dataSource: NewsRemoteDataSource,
     private val localDataSource: ArticleLocalDataSource,
+    private val savedArticleRepo: SavedNewsRepo
 ) : NewsRepo {
 
-    override val articles = localDataSource.articles.map { it.toArticles() }
+    override val articles = combine(
+        localDataSource.articles,
+        savedArticleRepo.savedArticle
+    ) { articles, saved ->
+        val savedMap = saved.associate { it.url to it.saved!! }
+        articles.toArticles(savedMap)
+    }
 
     override suspend fun fetchAllArticles() {
         supervisorScope {
@@ -44,10 +53,10 @@ class NewsRepoImpl(
         localDataSource.insertArticles(articles.toArticlesEntities(topic))
     }
 
-    override suspend fun getArticleById(id: Long) = localDataSource.getArticleById(id).toArticle()
-
-    //    override suspend fun searchNews(query: String): List<Article> {
-//        return dataSource.getNewsByQuery(query).toArticlesEntities(Topic.Headlines).toArticles()
-//    }
+    override suspend fun getArticleById(id: Long): Article {
+        return localDataSource.getArticleById(id).let {
+            it.toArticle(saved = savedArticleRepo.getSaved(it))
+        }
+    }
 
 }

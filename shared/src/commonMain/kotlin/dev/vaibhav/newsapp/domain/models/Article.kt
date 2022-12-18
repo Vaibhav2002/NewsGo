@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Article(
-    val id:Long,
+    val id: Long,
     val author: String,
     val content: String,
     val description: String,
@@ -15,5 +15,6 @@ data class Article(
     val title: String,
     val url: String,
     val urlToImage: String,
-    val topic:Topic
+    val topic: Topic,
+    val saved: Saved? = null
 )

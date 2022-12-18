@@ -11,6 +11,10 @@ object DateTimeUtil {
         return instant.toInstant().toEpochMilliseconds()
     }
 
+    fun toInstant(localDateTime: LocalDateTime):String{
+        return localDateTime.toInstant(TimeZone.currentSystemDefault()).toString()
+    }
+
     fun toLocalDateTime(instant:String):LocalDateTime{
         return instant.toInstant().toLocalDateTime(timeZone = TimeZone.currentSystemDefault())
     }
