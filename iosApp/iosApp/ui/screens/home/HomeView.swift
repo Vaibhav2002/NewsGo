@@ -33,10 +33,16 @@ struct HomeView: View {
                         onTopicChange: { topic in viewModel.onTopicPressed(topic: topic)}
                     ).padding([.leading, .vertical], 16)
                     
-                    ArticlesList(articles: viewModel.uiState.articles) { article in
-                        isArticleSelected = true
-                        selectedArticle = article
-                    }
+                    ArticlesList(
+                        articles: viewModel.uiState.articles,
+                        onArticleSaveToggled: {
+                            article in viewModel.onArticleLikeToggled(article: article)
+                        },
+                        onArticleClick: { article in
+                            isArticleSelected = true
+                            selectedArticle = article
+                        }
+                    )
                 }
             }
             .navigationTitle(viewModel.uiState.topic.topic)
@@ -56,12 +62,17 @@ struct HomeView: View {
 struct ArticlesList : View {
     
     var articles:[Article]
+    var onArticleSaveToggled:(Article) -> Void
     var onArticleClick:(Article) -> Void
     
     var body:some View{
             LazyVStack{
                 ForEach(articles, id: \.url){ article in
-                    NewsItem(news: article, onArticleClick: onArticleClick)
+                    NewsItem(
+                        news: article,
+                        onArticleClick: onArticleClick,
+                        onArticleLikeToggled: onArticleSaveToggled
+                    )
                     
                     if article != articles.last {
                         Spacer()

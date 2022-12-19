@@ -20,6 +20,7 @@ extension HomeView{
             self.appModule = appModule
             self.viewModel = CommonHomeViewModel(
                 newsRepo: appModule.articleRepo,
+                savedNewsRepo: appModule.savedNewsRepo,
                 scope:nil
             )
         }
@@ -48,6 +49,10 @@ extension HomeView{
         
         func onTopicPressed(topic:Topic){
             viewModel?.onTopicChange(topic: topic)
+        }
+        
+        func onArticleLikeToggled(article:Article){
+            viewModel?.onSavePress(article: article)
         }
         
         func onDispose(){

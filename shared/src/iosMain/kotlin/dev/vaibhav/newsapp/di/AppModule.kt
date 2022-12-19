@@ -19,7 +19,11 @@ class AppModule {
         NewsRepoImpl(
             dataSource = NewsRemoteDataSource(),
             localDataSource = ArticleLocalDataSource(providesDatabase()),
-            savedArticleRepo = SavedNewsRepoImpl(SavedArticleDataSource(providesDatabase()))
+            savedArticleRepo = savedNewsRepo
         )
+    }
+
+    val savedNewsRepo by lazy {
+        SavedNewsRepoImpl(SavedArticleDataSource(providesDatabase()))
     }
 }

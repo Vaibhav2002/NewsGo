@@ -14,23 +14,31 @@ struct NewsItem: View {
     
     let news:Article
     let onArticleClick:(Article) -> Void
+    let onArticleLikeToggled:(Article) -> Void
     
     var body: some View {
         VStack{
-            AsyncImage(
-                url:URL(string: news.urlToImage),
-                content: { image in
-                    image.resizable()
-                        .aspectRatio(CGSize(width:16, height:9), contentMode: .fill)
-                        .frame(maxWidth: .infinity)
-                },
-                placeholder: {
-                    Image("image_placeholder")
-                        .resizable()
-                        .aspectRatio(CGSize(width:16, height:9), contentMode: .fill)
-                        .frame(maxWidth: .infinity)
+            ZStack(alignment: .topTrailing){
+                AsyncImage(
+                    url:URL(string: news.urlToImage),
+                    content: { image in
+                        image.resizable()
+                            .aspectRatio(CGSize(width:16, height:9), contentMode: .fill)
+                            .frame(maxWidth: .infinity)
+                    },
+                    placeholder: {
+                        Image("image_placeholder")
+                            .resizable()
+                            .aspectRatio(CGSize(width:16, height:9), contentMode: .fill)
+                            .frame(maxWidth: .infinity)
+                    }
+                )
+                LikeButton(isLiked: news.saved?.isSaved == true){
+                    onArticleLikeToggled(news)
                 }
-            )
+                .padding([.trailing, .top], 8)
+            }
+            
             Text(news.title)
                 .font(.title2)
                 .lineLimit(1)

@@ -18,7 +18,7 @@ struct ArticleView: View {
     @StateObject private var viewModel = ArticleViewModel()
     
     var body: some View {
-        var uiState = viewModel.uiState
+        let uiState = viewModel.uiState
         VStack{
             ArticleCover(title:uiState.title, image:uiState.image)
                 .cornerRadius(8)
