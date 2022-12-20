@@ -6,12 +6,14 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.vaibhav.newsapp.android.presentation.screens.navigation.Screens
 import dev.vaibhav.newsapp.domain.repo.NewsRepo
+import dev.vaibhav.newsapp.domain.repo.SavedNewsRepo
 import dev.vaibhav.newsapp.presentation.articleDetail.CommonArticleDetailViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class ArticleDetailViewModel @Inject constructor(
     newsRepo:NewsRepo,
+    savedNewsRepo: SavedNewsRepo,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -20,8 +22,11 @@ class ArticleDetailViewModel @Inject constructor(
     private val viewModel = CommonArticleDetailViewModel(
         articleId = articleId ?: 0,
         scope = viewModelScope,
-        newsRepo = newsRepo
+        newsRepo = newsRepo,
+        savedNewsRepo = savedNewsRepo
     )
 
     val uiState = viewModel.uiState
+
+    fun toggleSave() = viewModel.toggleSave()
 }

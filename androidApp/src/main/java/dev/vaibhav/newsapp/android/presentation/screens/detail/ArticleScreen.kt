@@ -1,8 +1,10 @@
 package dev.vaibhav.newsapp.android.presentation.screens.detail
 
 import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
@@ -11,6 +13,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.DefaultShadowColor
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -19,6 +24,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import dev.vaibhav.newsapp.android.presentation.components.SaveToggleButton
 import dev.vaibhav.newsapp.domain.models.Article
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -26,7 +32,7 @@ import dev.vaibhav.newsapp.domain.models.Article
 fun ArticleScreen(
     viewModel: ArticleDetailViewModel = hiltViewModel(),
     modifier: Modifier = Modifier,
-    onBack:()->Unit = {}
+    onBack: () -> Unit = {}
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val scrollState = rememberScrollState()
@@ -40,6 +46,13 @@ fun ArticleScreen(
                 image = uiState.image,
                 title = uiState.title,
                 onBackPress = onBack
+            )
+        },
+        floatingActionButton = {
+            SaveArticleButton(
+                modifier = Modifier.size(64.dp),
+                isSaved = uiState.isSaved,
+                onClick = { viewModel.toggleSave() }
             )
         }
     ) {
@@ -57,9 +70,9 @@ fun ArticleScreen(
 
 @Composable
 fun ArticleDetailContent(
-    description:String,
-    content:String,
-    url:String,
+    description: String,
+    content: String,
+    url: String,
     modifier: Modifier = Modifier,
     scrollState: ScrollState
 ) {
@@ -69,7 +82,7 @@ fun ArticleDetailContent(
             style = SpanStyle(
                 color = MaterialTheme.colorScheme.onBackground,
             )
-        ){
+        ) {
             append(content.substringBeforeLast("["))
         }
 
@@ -80,7 +93,7 @@ fun ArticleDetailContent(
                 fontWeight = FontWeight.Bold,
                 textDecoration = TextDecoration.Underline
             )
-        ){
+        ) {
             append("Read More")
         }
     }
@@ -101,11 +114,33 @@ fun ArticleDetailContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .alpha(0.8f),
-        ){
+        ) {
             content.getStringAnnotations("Read More", it, it)
                 .firstOrNull()?.also {
                     uriHandler.openUri(url)
                 }
         }
     }
+}
+
+@Composable
+fun SaveArticleButton(
+    modifier: Modifier = Modifier,
+    isSaved: Boolean,
+    onClick: (Boolean) -> Unit
+) {
+    var modifier = modifier
+    if(!isSystemInDarkTheme())
+        modifier = modifier.shadow(
+            elevation = 4.dp,
+            shape = RoundedCornerShape(12.dp),
+            spotColor = if (!isSaved) DefaultShadowColor
+            else MaterialTheme.colorScheme.primary
+        )
+    SaveToggleButton(
+        modifier = modifier,
+        isSaved = isSaved,
+        onClick = onClick,
+        shape = RoundedCornerShape(12.dp)
+    )
 }

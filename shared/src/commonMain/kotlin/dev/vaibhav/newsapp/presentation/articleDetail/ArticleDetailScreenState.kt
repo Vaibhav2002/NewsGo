@@ -7,4 +7,5 @@ data class ArticleDetailScreenState(
     val content:String = "",
     val timeStamp:String = "",
     val url:String = "",
+    val isSaved:Boolean = false
 )
