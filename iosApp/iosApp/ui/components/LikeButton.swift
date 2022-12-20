@@ -9,27 +9,25 @@
 import SwiftUI
 
 @available(iOS 15.0, *)
-struct LikeButton: View {
+struct LikeButton<Content:Shape>: View {
     
+    let shape:Content
     let isLiked:Bool
     let onPress:()->Void
     
     var body: some View {
         Button(action:onPress) {
-            let imageName = isLiked ? "heart.fill" : "heart"
             let tint = isLiked ? Color.red : Color.gray
-            Image(systemName: imageName)
+            Image(systemName: "heart.fill")
                 .foregroundColor(tint)
-                .padding(4)
-        }
-        .frame(width:48, height:48)
-        .background(.ultraThinMaterial, in: Circle())
+                .frame(maxWidth: .infinity/2, maxHeight: .infinity/2, alignment: .center)
+        }.background(.thinMaterial, in: shape)
     }
 }
 
 @available(iOS 15.0, *)
 struct LikeButton_Previews: PreviewProvider {
     static var previews: some View {
-        LikeButton(isLiked: true, onPress: {})
+        LikeButton(shape:Circle(), isLiked: true, onPress: {})
     }
 }

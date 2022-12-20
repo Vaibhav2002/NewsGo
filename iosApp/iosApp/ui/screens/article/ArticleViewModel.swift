@@ -24,7 +24,8 @@ extension ArticleView{
             description: "",
             content: "",
             timeStamp: "",
-            url: ""
+            url: "",
+            isSaved: false
         )
         
         func setDependencies(appModule: AppModule, articleId: Int64){
@@ -34,6 +35,7 @@ extension ArticleView{
             self.viewModel = CommonArticleDetailViewModel(
                 articleId: articleId,
                 newsRepo: appModule.articleRepo,
+                savedNewsRepo: appModule.savedNewsRepo,
                 scope: nil
             )
         }
@@ -48,8 +50,13 @@ extension ArticleView{
             }
         }
         
+        func toggleLike() {
+            viewModel?.toggleSave()
+        }
+        
         func dispose(){
             disposableHandle?.dispose()
         }
+        
     }
 }

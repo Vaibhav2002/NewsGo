@@ -19,29 +19,39 @@ struct ArticleView: View {
     
     var body: some View {
         let uiState = viewModel.uiState
-        VStack{
-            ArticleCover(title:uiState.title, image:uiState.image)
-                .cornerRadius(8)
-            Text(uiState.description_)
-                .font(.callout)
-                .frame(maxWidth: .infinity)
-                .padding([.horizontal, .top], 8)
-            Spacer().frame(height: 8)
-            Text(uiState.content)
-                .font(.caption)
-                .padding(.horizontal, 8)
-                .foregroundColor(Color.gray)
-            Spacer().frame(height: 2)
-            if uiState.url != "" {
-                Link("Read More", destination: URL(string: uiState.url)!)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal, 8)
+        ZStack(alignment: .bottomTrailing){
+            VStack{
+                ArticleCover(title:uiState.title, image:uiState.image)
+                    .cornerRadius(8)
+                Text(uiState.description_)
+                    .font(.callout)
+                    .frame(maxWidth: .infinity)
+                    .padding([.horizontal, .top], 8)
+                Spacer().frame(height: 8)
+                Text(uiState.content)
                     .font(.caption)
+                    .padding(.horizontal, 8)
+                    .foregroundColor(Color.gray)
+                Spacer().frame(height: 2)
+                if uiState.url != "" {
+                    Link("Read More", destination: URL(string: uiState.url)!)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal, 8)
+                        .font(.caption)
+                }
+                
             }
+            .padding(4)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             
+            LikeButton(
+                shape: RoundedRectangle(cornerRadius: 12),
+                isLiked: uiState.isSaved,
+                onPress: { viewModel.toggleLike() }
+            )
+            .padding([.bottom, .trailing], 16)
+            .frame(width:72, height:72)
         }
-        .padding(4)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .navigationBarTitle(uiState.title, displayMode: .inline)
         .onAppear{
             viewModel.setDependencies(appModule: appModule, articleId: articleId)
