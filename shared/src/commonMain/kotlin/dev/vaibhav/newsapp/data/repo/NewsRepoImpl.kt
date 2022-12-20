@@ -53,8 +53,8 @@ class NewsRepoImpl(
         localDataSource.insertArticles(articles.toArticlesEntities(topic))
     }
 
-    override suspend fun getArticleById(id: Long): Article {
-        return localDataSource.getArticleById(id).let {
+    override suspend fun getArticleByUrl(url: String): Article {
+        return localDataSource.getArticleByUrl(url).let {
             it.toArticle(saved = savedArticleRepo.getSaved(it))
         }
     }

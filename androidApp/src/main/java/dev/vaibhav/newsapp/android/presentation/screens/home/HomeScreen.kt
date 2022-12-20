@@ -6,12 +6,16 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -26,13 +30,14 @@ import dev.vaibhav.newsapp.presentation.home.HomeScreenState
 fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
-    navigateToDetail:(Article)->Unit
+    navigateToDetail: (Article) -> Unit,
+    navigateToSavedScreen:()->Unit
 ) {
     val state by viewModel.uiState.collectAsState()
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     Scaffold(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = { AppBar(title = state.topic.topic, scrollBehavior = scrollBehavior) },
+        topBar = { HomeAppBar(scrollBehavior = scrollBehavior, topic = state.topic, navigateToSavedScreen)},
     ) {
         HomeScreenContent(
             modifier = Modifier
@@ -46,14 +51,42 @@ fun HomeScreen(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun HomeAppBar(
+    scrollBehavior:TopAppBarScrollBehavior,
+    topic: Topic,
+    navigateToSavedScreen: () -> Unit
+) {
+    AppBar(
+        title = topic.topic,
+        scrollBehavior = scrollBehavior,
+        actions = {
+            FilledIconButton(
+                onClick = navigateToSavedScreen,
+                colors = IconButtonDefaults.filledIconButtonColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp),
+                    contentColor = MaterialTheme.colorScheme.secondary
+                ),
+                modifier = Modifier.clip(CircleShape)
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.Favorite,
+                    contentDescription = "Saved Screen"
+                )
+            }
+        }
+    )
+}
+
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HomeScreenContent(
+private fun HomeScreenContent(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel,
     state: HomeScreenState,
-    onArticleClick:(Article)->Unit,
-    onSaveClick:(Article)->Unit
+    onArticleClick: (Article) -> Unit,
+    onSaveClick: (Article) -> Unit
 ) {
     LazyColumn(
         modifier = modifier,
@@ -83,7 +116,7 @@ fun HomeScreenContent(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopicChips(
+private fun TopicChips(
     modifier: Modifier = Modifier,
     topics: List<Topic>,
     selectedTopic: Topic,
@@ -97,7 +130,13 @@ fun TopicChips(
             ElevatedFilterChip(
                 shape = RoundedCornerShape(8.dp),
                 selected = selectedTopic == it,
-                label = { Text(text = it.topic, style = MaterialTheme.typography.labelLarge, modifier = Modifier.padding(vertical = 12.dp, horizontal = 8.dp)) },
+                label = {
+                    Text(
+                        text = it.topic,
+                        style = MaterialTheme.typography.labelLarge,
+                        modifier = Modifier.padding(vertical = 12.dp, horizontal = 8.dp)
+                    )
+                },
                 onClick = { onTopicChanged(it) }
             )
         }

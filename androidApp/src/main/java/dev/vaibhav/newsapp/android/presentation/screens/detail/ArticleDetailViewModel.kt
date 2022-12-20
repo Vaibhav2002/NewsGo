@@ -17,10 +17,10 @@ class ArticleDetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
-    private val articleId = savedStateHandle.get<Long>(Screens.ArticleDetail.articleArg)
+    private val articleUrl = savedStateHandle.get<String>(Screens.ArticleDetail.articleArg)
 
     private val viewModel = CommonArticleDetailViewModel(
-        articleId = articleId ?: 0,
+        articleUrl = articleUrl?:"",
         scope = viewModelScope,
         newsRepo = newsRepo,
         savedNewsRepo = savedNewsRepo

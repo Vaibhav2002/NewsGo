@@ -13,7 +13,6 @@ class ArticleLocalDataSource(database: NewsDatabase) {
 
     suspend fun insertArticles(articles:List<ArticleEntity>) = articles.forEach {
         queries.insertArticle(
-            id = null,
             author = it.author,
             content = it.content,
             description = it.description,
@@ -26,9 +25,9 @@ class ArticleLocalDataSource(database: NewsDatabase) {
         )
     }
 
-    suspend fun getArticleById(id:Long) = queries.getArticleById(id).executeAsOne()
+    suspend fun getArticleByUrl(url:String) = queries.getArticleByUrl(url).executeAsOne()
 
-    suspend fun deleteArticleById(id: Long) = queries.deleteArticleById(id)
+//    suspend fun deleteArticleByUrl(id: Long) = queries.deleteArticleById(id)
 
     suspend fun deleteArticleByTopic(topic:String) = queries.deleteArticlesByType(topic)
 

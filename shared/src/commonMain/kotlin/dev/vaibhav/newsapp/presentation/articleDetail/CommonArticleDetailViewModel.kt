@@ -18,8 +18,8 @@ import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.launch
 
 class CommonArticleDetailViewModel(
-    private val articleId: Long,
-    private val newsRepo: NewsRepo,
+    private val articleUrl: String,
+    newsRepo: NewsRepo,
     private val savedNewsRepo: SavedNewsRepo,
     scope: CoroutineScope? = null
 ) {
@@ -27,7 +27,7 @@ class CommonArticleDetailViewModel(
     private val viewModelScope = scope ?: CoroutineScope(Dispatchers.Main)
 
     private val article = newsRepo.articles.mapNotNull {
-        it.find { it.id == articleId }
+        it.find { it.url == articleUrl }
     }.toStateFlow(viewModelScope, null)
 
     val uiState = article.filterNotNull().mapLatest {

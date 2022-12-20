@@ -19,7 +19,6 @@ fun ArticleEntity.toArticle(saved: Saved? = null) = Article(
     url = url,
     urlToImage = image_url ?: "",
     topic = Topic.fromTopic(topic),
-    id = id,
     saved = saved
 )
 
@@ -37,7 +36,6 @@ fun Article.toArticleEntity() = ArticleEntity(
     url = url,
     image_url = urlToImage,
     topic = topic.topic,
-    id = id
 )
 
 fun SavedArticle.toArticle() = Article(
@@ -50,6 +48,5 @@ fun SavedArticle.toArticle() = Article(
     url = url,
     urlToImage = image_url ?: "",
     topic = Topic.fromTopic(topic),
-    id = id,
     saved = Saved(id, true)
 )

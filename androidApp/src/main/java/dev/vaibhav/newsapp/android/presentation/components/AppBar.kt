@@ -1,12 +1,15 @@
 package dev.vaibhav.newsapp.android.presentation.components
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -16,6 +19,7 @@ fun AppBar(
     isBackEnabled:Boolean = false,
     scrollBehavior: TopAppBarScrollBehavior,
     textStyle:TextStyle = MaterialTheme.typography.displaySmall,
+    actions: @Composable RowScope.()->Unit = {},
     onBackPress:()->Unit = {}
 ) {
     LargeTopAppBar(
@@ -26,9 +30,10 @@ fun AppBar(
                 Icon(
                     imageVector = Icons.Rounded.ArrowBack,
                     contentDescription = "Back",
-                    modifier = Modifier.clickable { onBackPress() }
+                    modifier = Modifier.clickable { onBackPress() }.padding(8.dp)
                 )
         },
+        actions = actions,
         scrollBehavior = scrollBehavior
     )
 }

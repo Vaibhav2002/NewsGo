@@ -1,12 +1,11 @@
 CREATE TABLE ArticleEntity(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
     author TEXT,
     content TEXT,
     description TEXT,
     published_at TEXT NOT NULL,
     source TEXT,
     title TEXT,
-    url TEXT NOT NULL,
+    url TEXT NOT NULL PRIMARY KEY,
     image_url TEXT,
     topic TEXT NOT NULL
 );
@@ -17,11 +16,11 @@ SELECT * FROM ArticleEntity;
 getArticlesByTopic:
 SELECT * FROM ArticleEntity WHERE topic = ?;
 
-getArticleById:
-SELECT * FROM ArticleEntity WHERE id = ?;
+getArticleByUrl:
+SELECT * FROM ArticleEntity WHERE url = ?;
 
-deleteArticleById:
-DELETE FROM ArticleEntity WHERE id = ?;
+deleteArticleByUrl:
+DELETE FROM ArticleEntity WHERE url = ?;
 
 deleteArticlesByType:
 DELETE FROM ArticleEntity WHERE topic = ?;
@@ -32,7 +31,6 @@ DELETE FROM ArticleEntity;
 insertArticle:
 INSERT OR REPLACE
 INTO ArticleEntity(
-    id,
     author,
     content,
     description,
@@ -42,4 +40,4 @@ INTO ArticleEntity(
     url,
     image_url,
     topic
-) VALUES (?,?,?,?,?,?,?,?,?,?);
+) VALUES (?,?,?,?,?,?,?,?,?);
