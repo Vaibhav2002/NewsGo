@@ -14,7 +14,7 @@ extension ArticleView{
     @MainActor class ArticleViewModel:ObservableObject{
         
         private var appModule:AppModule?
-        private var articleId:Int64?
+        private var articleUrl:String?
         
         private var viewModel:CommonArticleDetailViewModel?
         
@@ -28,12 +28,12 @@ extension ArticleView{
             isSaved: false
         )
         
-        func setDependencies(appModule: AppModule, articleId: Int64){
+        func setDependencies(appModule: AppModule, articleUrl: String){
             self.appModule = appModule
-            self.articleId = articleId
+            self.articleUrl = articleUrl
             
             self.viewModel = CommonArticleDetailViewModel(
-                articleId: articleId,
+                articleUrl: articleUrl,
                 newsRepo: appModule.articleRepo,
                 savedNewsRepo: appModule.savedNewsRepo,
                 scope: nil

@@ -23,7 +23,7 @@ struct HomeView: View {
             ScrollView{
                 VStack{
                     NavigationLink(
-                        destination:ArticleView(appModule: appModule, articleId: selectedArticle?.id ?? 0),
+                        destination:ArticleView(appModule: appModule, articleUrl: selectedArticle?.url ?? ""),
                         isActive: $isArticleSelected
                     ){ EmptyView() }
                     
