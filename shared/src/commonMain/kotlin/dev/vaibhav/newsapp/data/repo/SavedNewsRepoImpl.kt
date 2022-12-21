@@ -30,7 +30,7 @@ class SavedNewsRepoImpl(private val dataSource: SavedArticleDataSource) : SavedN
     }
 
     override suspend fun getSaved(article: ArticleEntity) =
-        getSavedArticles().find { it.url == article.url }?.let {
-            Saved(it.saved!!.saveId, true)
+        getSavedArticles().find { it.url == article.url }?.saved?.let {
+            Saved(it.saveId, true, it.timeStamp)
         }
 }

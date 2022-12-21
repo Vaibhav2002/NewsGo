@@ -8,11 +8,12 @@ CREATE TABLE SavedArticle(
     title TEXT,
     url TEXT NOT NULL,
     image_url TEXT,
-    topic TEXT NOT NULL
+    topic TEXT NOT NULL,
+    savedTimestamp INTEGER NOT NULL
 );
 
 getAllSavedArticles:
-SELECT * FROM SavedArticle;
+SELECT * FROM SavedArticle ORDER BY savedTimestamp DESC;
 
 insertArticle:
 INSERT OR REPLACE
@@ -26,8 +27,9 @@ INTO SavedArticle(
     title,
     url,
     image_url,
-    topic
-) VALUES (?,?,?,?,?,?,?,?,?,?);
+    topic,
+    savedTimestamp
+) VALUES (?,?,?,?,?,?,?,?,?,?,?);
 
 removeArticle:
 DELETE FROM SavedArticle WHERE id = ?;

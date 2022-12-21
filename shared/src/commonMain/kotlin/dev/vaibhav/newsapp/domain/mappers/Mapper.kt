@@ -48,5 +48,5 @@ fun SavedArticle.toArticle() = Article(
     url = url,
     urlToImage = image_url ?: "",
     topic = Topic.fromTopic(topic),
-    saved = Saved(id, true)
+    saved = Saved(id, true, DateTimeUtil.toLocalDateTimeFromMillis(savedTimestamp))
 )

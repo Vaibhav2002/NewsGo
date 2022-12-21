@@ -1,11 +1,17 @@
 package dev.vaibhav.newsapp.utils
 
+import kotlinx.datetime.Clock
+import kotlinx.datetime.DateTimePeriod
+import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 
 object DateTimeUtil {
+
+    val nowInMillis:Long
+        get() = Clock.System.now().toEpochMilliseconds()
 
     fun toEpochMillis(instant:String):Long{
         return instant.toInstant().toEpochMilliseconds()
@@ -17,6 +23,10 @@ object DateTimeUtil {
 
     fun toLocalDateTime(instant:String):LocalDateTime{
         return instant.toInstant().toLocalDateTime(timeZone = TimeZone.currentSystemDefault())
+    }
+
+    fun toLocalDateTimeFromMillis(millis:Long):LocalDateTime{
+        return Instant.fromEpochMilliseconds(millis).toLocalDateTime(TimeZone.currentSystemDefault())
     }
 
     fun formatDateTime(dateTime:LocalDateTime):String{

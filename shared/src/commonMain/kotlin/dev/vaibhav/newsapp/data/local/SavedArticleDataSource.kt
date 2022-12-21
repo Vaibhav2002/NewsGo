@@ -4,6 +4,7 @@ import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
 import database.ArticleEntity
 import dev.vaibhav.newsapp.database.NewsDatabase
+import dev.vaibhav.newsapp.utils.DateTimeUtil
 
 class SavedArticleDataSource(database: NewsDatabase) {
 
@@ -23,7 +24,8 @@ class SavedArticleDataSource(database: NewsDatabase) {
         title = article.title,
         url = article.url,
         image_url = article.image_url,
-        topic = article.topic
+        topic = article.topic,
+        savedTimestamp = DateTimeUtil.nowInMillis
     )
 
     suspend fun unSaveArticle(id:Long) = queries.removeArticle(id)
