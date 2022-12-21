@@ -10,7 +10,7 @@ import SwiftUI
 import shared
 
 @available(iOS 15.0, *)
-struct ArticleView: View {
+struct ArticleScreen: View {
     
     let appModule:AppModule
     let articleUrl:String
@@ -44,7 +44,7 @@ struct ArticleView: View {
             .padding(4)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             
-            LikeButton(
+            SaveButton(
                 shape: RoundedRectangle(cornerRadius: 12),
                 isLiked: uiState.isSaved,
                 onPress: { viewModel.toggleLike() }

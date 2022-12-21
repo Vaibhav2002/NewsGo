@@ -10,7 +10,7 @@ import Foundation
 import shared
 
 @available(iOS 15.0, *)
-extension HomeView{
+extension HomeScreen{
     @MainActor class HomeViewModel:ObservableObject {
         
         private var appModule:AppModule?

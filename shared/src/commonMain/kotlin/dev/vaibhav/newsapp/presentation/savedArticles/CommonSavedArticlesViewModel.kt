@@ -2,6 +2,7 @@ package dev.vaibhav.newsapp.presentation.savedArticles
 
 import dev.vaibhav.newsapp.domain.models.Article
 import dev.vaibhav.newsapp.domain.repo.SavedNewsRepo
+import dev.vaibhav.newsapp.utils.flows.toCommonStateFlow
 import dev.vaibhav.newsapp.utils.flows.toStateFlow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +20,9 @@ class CommonSavedArticlesViewModel(
 
     val uiState = savedArticles.mapLatest {
         SavedArticlesScreenState(articles = it)
-    }.toStateFlow(viewModelScope, SavedArticlesScreenState())
+    }
+        .toStateFlow(viewModelScope, SavedArticlesScreenState())
+        .toCommonStateFlow()
 
     fun onSaveToggled(article: Article) = viewModelScope.launch {
         if(article.saved?.isSaved == true)

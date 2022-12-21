@@ -7,7 +7,7 @@ struct iOSApp: App {
     let appModule = AppModule()
 	var body: some Scene {
 		WindowGroup {
-			HomeView(appModule: appModule)
+			HomeScreen(appModule: appModule)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
 		}
 	}

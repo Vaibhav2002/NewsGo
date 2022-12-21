@@ -9,7 +9,7 @@
 import SwiftUI
 
 @available(iOS 15.0, *)
-struct LikeButton<Content:Shape>: View {
+struct SaveButton<Content:Shape>: View {
     
     let shape:Content
     let isLiked:Bool
@@ -28,6 +28,6 @@ struct LikeButton<Content:Shape>: View {
 @available(iOS 15.0, *)
 struct LikeButton_Previews: PreviewProvider {
     static var previews: some View {
-        LikeButton(shape:Circle(), isLiked: true, onPress: {})
+        SaveButton(shape:Circle(), isLiked: true, onPress: {})
     }
 }

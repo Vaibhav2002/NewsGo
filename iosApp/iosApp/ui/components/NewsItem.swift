@@ -33,7 +33,7 @@ struct NewsItem: View {
                             .frame(maxWidth: .infinity)
                     }
                 )
-                LikeButton(shape:Circle(), isLiked: news.saved?.isSaved == true){
+                SaveButton(shape:Circle(), isLiked: news.saved?.isSaved == true){
                     onArticleLikeToggled(news)
                 }
                 .padding([.trailing, .top], 8)

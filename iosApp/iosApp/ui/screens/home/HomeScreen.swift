@@ -10,22 +10,27 @@ import SwiftUI
 import shared
 
 @available(iOS 15.0, *)
-struct HomeView: View {
+struct HomeScreen: View {
     
     let appModule:AppModule
     
     @StateObject private var viewModel = HomeViewModel()
     @State private var isArticleSelected = false
     @State private var selectedArticle:Article? = nil
+    @State private var isSavedButtonPressed = false
     
     var body: some View {
         NavigationView{
             ScrollView{
                 VStack{
                     NavigationLink(
-                        destination:ArticleView(appModule: appModule, articleUrl: selectedArticle?.url ?? ""),
+                        destination:ArticleScreen(appModule: appModule, articleUrl: selectedArticle?.url ?? ""),
                         isActive: $isArticleSelected
                     ){ EmptyView() }
+                    
+                    NavigationLink(destination: SavedArticlesScreen(appModule: appModule), isActive: $isSavedButtonPressed){
+                        EmptyView()
+                    }
                     
                     TopicList(
                         topics: viewModel.topics,
@@ -45,6 +50,7 @@ struct HomeView: View {
                     )
                 }
             }
+            .navigationBarItems(trailing: SavedButton { isSavedButtonPressed = true } )
             .navigationTitle(viewModel.uiState.topic.topic)
             .onAppear{
                 viewModel.setAppModule(appModule: appModule)
@@ -58,33 +64,6 @@ struct HomeView: View {
     }
 }
 
-@available(iOS 15.0, *)
-struct ArticlesList : View {
-    
-    var articles:[Article]
-    var onArticleSaveToggled:(Article) -> Void
-    var onArticleClick:(Article) -> Void
-    
-    var body:some View{
-            LazyVStack{
-                ForEach(articles, id: \.url){ article in
-                    NewsItem(
-                        news: article,
-                        onArticleClick: onArticleClick,
-                        onArticleLikeToggled: onArticleSaveToggled
-                    )
-                    
-                    if article != articles.last {
-                        Spacer()
-                            .frame(height: 16)
-                        Spacer()
-                            .frame(height: 16)
-                    }
-                }
-            }.listRowSeparator(.visible)
-        
-    }
-}
 
 @available(iOS 15.0, *)
 struct TopicList : View{
@@ -103,6 +82,18 @@ struct TopicList : View{
                     Spacer().frame(width: 8,height:0)
                 }
             }
+        }
+    }
+}
+
+@available(iOS 15.0, *)
+struct SavedButton : View{
+    
+    let onPress:()->Void
+    
+    var body: some View {
+        Button(action: onPress){
+            Image(systemName: "heart.fill")
         }
     }
 }

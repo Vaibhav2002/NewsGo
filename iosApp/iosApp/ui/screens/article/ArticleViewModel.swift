@@ -10,7 +10,7 @@ import Foundation
 import shared
 
 @available(iOS 15.0, *)
-extension ArticleView{
+extension ArticleScreen{
     @MainActor class ArticleViewModel:ObservableObject{
         
         private var appModule:AppModule?
