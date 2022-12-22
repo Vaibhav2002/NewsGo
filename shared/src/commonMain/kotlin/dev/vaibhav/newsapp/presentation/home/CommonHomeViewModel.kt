@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.newCoroutineContext
 
 class CommonHomeViewModel(
     private val newsRepo: NewsRepo,
@@ -64,5 +65,10 @@ class CommonHomeViewModel(
     fun onSavePress(article:Article) = viewModelScope.launch {
         if(article.saved?.isSaved == true) savedNewsRepo.unSaveArticle(article)
         else savedNewsRepo.saveArticle(article)
+    }
+
+    fun onRefresh() = viewModelScope.launch {
+        if(topic.value == Topic.Headlines) newsRepo.fetchTopHeadlines()
+        else newsRepo.fetchNewsByTopic(topic.value)
     }
 }
