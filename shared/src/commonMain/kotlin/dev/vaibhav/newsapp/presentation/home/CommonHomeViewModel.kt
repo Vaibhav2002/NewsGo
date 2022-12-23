@@ -16,6 +16,8 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -31,6 +33,7 @@ class CommonHomeViewModel(
     private val topic = MutableStateFlow<Topic>(Topic.Headlines)
 
     private val isLoading = MutableStateFlow(false)
+    private val isRefreshing = MutableStateFlow(false)
 
     private val error = MutableStateFlow<String?>(null)
 
@@ -38,12 +41,13 @@ class CommonHomeViewModel(
         newsRepo.articles.map { it.filter { it.topic == topic } }
     }
 
-    val uiState = combine(topic, isLoading, news, error) { topic, loading, articles, error ->
+    val uiState = combine(topic, isLoading, news, error, isRefreshing) { topic, loading, articles, error, refreshing ->
         HomeScreenState(
             articles = articles,
             topic = topic,
             isLoading = loading,
-            error = error
+            error = error,
+            isRefreshing = refreshing
         )
     }
         .toStateFlow(viewModelScope, HomeScreenState())
@@ -54,7 +58,9 @@ class CommonHomeViewModel(
     }
 
     private fun fetchAllArticles() = flow { emit(newsRepo.fetchAllArticles()) }
+        .onStart { isLoading.emit(true) }
         .catch { println(it.stackTraceToString()) }
+        .onCompletion { isLoading.emit(false) }
         .launchIn(viewModelScope)
 
 
@@ -68,7 +74,9 @@ class CommonHomeViewModel(
     }
 
     fun onRefresh() = viewModelScope.launch {
+        isRefreshing.emit(true)
         if(topic.value == Topic.Headlines) newsRepo.fetchTopHeadlines()
         else newsRepo.fetchNewsByTopic(topic.value)
+        isRefreshing.emit(false)
     }
 }
