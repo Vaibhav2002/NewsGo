@@ -17,10 +17,10 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun SaveToggleButton(
-    modifier:Modifier = Modifier,
-    isSaved:Boolean,
-    shape:Shape = CircleShape,
-    onClick:(Boolean)->Unit
+    modifier: Modifier = Modifier,
+    isSaved: Boolean,
+    shape: Shape = CircleShape,
+    onClick: (Boolean) -> Unit
 ) {
     FilledIconToggleButton(
         modifier = modifier,

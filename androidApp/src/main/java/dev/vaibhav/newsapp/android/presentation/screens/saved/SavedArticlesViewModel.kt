@@ -11,7 +11,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SavedArticlesViewModel @Inject constructor(
     savedNewsRepo: SavedNewsRepo
-): ViewModel() {
+) : ViewModel() {
 
     private val viewModel = CommonSavedArticlesViewModel(
         savedNewsRepo = savedNewsRepo,

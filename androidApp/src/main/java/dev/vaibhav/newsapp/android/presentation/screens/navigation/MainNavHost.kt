@@ -21,8 +21,8 @@ fun MainNavHost(
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
-    val navigateBack:()->Unit = { navController.popBackStack() }
-    val navigateToDetail:(Article) -> Unit = {
+    val navigateBack: () -> Unit = { navController.popBackStack() }
+    val navigateToDetail: (Article) -> Unit = {
         navController.navigate(ArticleDetail.createRoute(it))
     }
     NavHost(
@@ -49,7 +49,7 @@ fun MainNavHost(
             )
         }
 
-        composable(SavedArticles.route){
+        composable(SavedArticles.route) {
             SavedArticlesScreen(
                 modifier = Modifier.fillMaxSize(),
                 onBackPress = navigateBack,

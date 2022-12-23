@@ -15,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.DefaultShadowColor
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -25,7 +24,6 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import dev.vaibhav.newsapp.android.presentation.components.SaveToggleButton
-import dev.vaibhav.newsapp.domain.models.Article
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -130,7 +128,7 @@ fun SaveArticleButton(
     onClick: (Boolean) -> Unit
 ) {
     var modifier = modifier
-    if(!isSystemInDarkTheme())
+    if (!isSystemInDarkTheme())
         modifier = modifier.shadow(
             elevation = 4.dp,
             shape = RoundedCornerShape(12.dp),

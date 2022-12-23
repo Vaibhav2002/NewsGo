@@ -35,27 +35,27 @@ object MainModule {
     @Singleton
     fun providesNewsDatabase(
         factory: DatabaseDriverFactory
-    ):NewsDatabase = NewsDatabase(
+    ): NewsDatabase = NewsDatabase(
         driver = factory.createDriver()
     )
 
     @Provides
     @Singleton
     fun providesLocalArticleDataSource(
-        database:NewsDatabase
+        database: NewsDatabase
     ): ArticleLocalDataSource = ArticleLocalDataSource(database)
 
     @Provides
     @Singleton
     fun providesSavedArticleDataSource(
-        database:NewsDatabase
+        database: NewsDatabase
     ): SavedArticleDataSource = SavedArticleDataSource(database)
 
     @Provides
     @Singleton
     fun providesSavedNewsRepo(
         dataSource: SavedArticleDataSource
-    ):SavedNewsRepo = SavedNewsRepoImpl(dataSource)
+    ): SavedNewsRepo = SavedNewsRepoImpl(dataSource)
 
     @Provides
     @Singleton

@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ArticleDetailViewModel @Inject constructor(
-    newsRepo:NewsRepo,
+    newsRepo: NewsRepo,
     savedNewsRepo: SavedNewsRepo,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
@@ -20,7 +20,7 @@ class ArticleDetailViewModel @Inject constructor(
     private val articleUrl = savedStateHandle.get<String>(Screens.ArticleDetail.articleArg)
 
     private val viewModel = CommonArticleDetailViewModel(
-        articleUrl = articleUrl?:"",
+        articleUrl = articleUrl ?: "",
         scope = viewModelScope,
         newsRepo = newsRepo,
         savedNewsRepo = savedNewsRepo

@@ -19,9 +19,9 @@ import dev.vaibhav.newsapp.android.presentation.theme.NewsAppTheme
 
 @Composable
 fun NoResults(
-    modifier:Modifier = Modifier,
-    title:String = "No Articles found",
-    message:String = "Try refreshing to get articles"
+    modifier: Modifier = Modifier,
+    title: String = "No Articles found",
+    message: String = "Try refreshing to get articles"
 ) {
     Column(
         modifier = modifier,
@@ -49,7 +49,7 @@ fun NoResults(
 @Composable
 fun NoResultsPreview() {
     NewsAppTheme {
-        Surface(){
+        Surface {
             NoResults()
         }
 

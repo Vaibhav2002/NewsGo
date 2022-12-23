@@ -1,8 +1,5 @@
 package dev.vaibhav.newsapp.android.presentation.screens.navigation
 
-import android.net.Uri
-import com.google.gson.Gson
-import dev.vaibhav.newsapp.android.presentation.screens.navigation.Screens.ArticleDetail.articleArg
 import dev.vaibhav.newsapp.domain.models.Article
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
@@ -13,7 +10,7 @@ sealed class Screens(val route: String) {
     object ArticleDetail : Screens("articleDetail/{articleUrl}") {
         const val articleArg = "articleUrl"
 
-        fun createRoute(article: Article):String {
+        fun createRoute(article: Article): String {
             val url = URLEncoder.encode(article.url, StandardCharsets.UTF_8.toString())
             return route.replace("{$articleArg}", url)
         }

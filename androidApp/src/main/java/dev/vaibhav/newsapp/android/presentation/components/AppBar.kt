@@ -15,22 +15,24 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun AppBar(
     modifier: Modifier = Modifier,
-    title:String,
-    isBackEnabled:Boolean = false,
+    title: String,
+    isBackEnabled: Boolean = false,
     scrollBehavior: TopAppBarScrollBehavior,
-    textStyle:TextStyle = MaterialTheme.typography.displaySmall,
-    actions: @Composable RowScope.()->Unit = {},
-    onBackPress:()->Unit = {}
+    textStyle: TextStyle = MaterialTheme.typography.displaySmall,
+    actions: @Composable RowScope.() -> Unit = {},
+    onBackPress: () -> Unit = {}
 ) {
     LargeTopAppBar(
         title = { Text(text = title, style = textStyle) },
         modifier = modifier,
         navigationIcon = {
-            if(isBackEnabled)
+            if (isBackEnabled)
                 Icon(
                     imageVector = Icons.Rounded.ArrowBack,
                     contentDescription = "Back",
-                    modifier = Modifier.clickable { onBackPress() }.padding(8.dp)
+                    modifier = Modifier
+                        .clickable { onBackPress() }
+                        .padding(8.dp)
                 )
         },
         actions = actions,
