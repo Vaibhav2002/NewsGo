@@ -20,7 +20,7 @@ extension HomeScreen{
             self.appModule = appModule
             self.viewModel = CommonHomeViewModel(
                 newsRepo: appModule.articleRepo,
-                savedNewsRepo: appModule.savedNewsRepo,
+                saveArticleUseCase: appModule.saveArticleUseCase,
                 scope:nil
             )
         }

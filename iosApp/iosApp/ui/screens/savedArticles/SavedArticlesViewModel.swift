@@ -24,6 +24,7 @@ extension SavedArticlesScreen{
             self.appModule = appModule
             viewModel = CommonSavedArticlesViewModel(
                 savedNewsRepo: appModule.savedNewsRepo,
+                saveArticleUseCase: appModule.saveArticleUseCase,
                 scope: nil
             )
         }

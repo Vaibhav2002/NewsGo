@@ -35,7 +35,7 @@ extension ArticleScreen{
             self.viewModel = CommonArticleDetailViewModel(
                 articleUrl: articleUrl,
                 newsRepo: appModule.articleRepo,
-                savedNewsRepo: appModule.savedNewsRepo,
+                saveArticleUseCase: appModule.saveArticleUseCase,
                 scope: nil
             )
         }
