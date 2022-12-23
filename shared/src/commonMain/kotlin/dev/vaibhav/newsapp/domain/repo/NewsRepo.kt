@@ -16,5 +16,5 @@ interface NewsRepo {
 
     suspend fun getArticleByUrl(url: String): Article
 
-//    suspend fun searchNews(query:String):List<Article>
+    suspend fun searchNews(query:String):List<Article>
 }

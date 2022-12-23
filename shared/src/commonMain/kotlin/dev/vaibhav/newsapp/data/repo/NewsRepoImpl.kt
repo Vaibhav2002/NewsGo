@@ -58,4 +58,7 @@ class NewsRepoImpl(
         }
     }
 
+    override suspend fun searchNews(query: String): List<Article> {
+        return dataSource.getNewsByQuery(query).map { it.toArticle() }
+    }
 }
