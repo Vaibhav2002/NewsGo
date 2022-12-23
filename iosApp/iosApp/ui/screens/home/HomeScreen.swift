@@ -59,6 +59,9 @@ struct HomeScreen: View {
             .onDisappear{
                 viewModel.onDispose()
             }
+            .refreshable{
+                viewModel.onRefresh()
+            }
             
         }
     }

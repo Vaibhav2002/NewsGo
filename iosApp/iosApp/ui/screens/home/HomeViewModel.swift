@@ -29,7 +29,8 @@ extension HomeScreen{
             articles: [],
             topic: Topic.Headlines(),
             isLoading: false,
-            error: nil
+            error: nil,
+            isRefreshing: false
         )
         
         let topics = [Topic.Headlines(), Topic.Sports(),
@@ -53,6 +54,10 @@ extension HomeScreen{
         
         func onArticleLikeToggled(article:Article){
             viewModel?.onSavePress(article: article)
+        }
+        
+        func onRefresh(){
+            viewModel?.onRefresh()
         }
         
         func onDispose(){
