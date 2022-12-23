@@ -1,6 +1,5 @@
 package dev.vaibhav.newsapp.di
 
-import database.SavedArticle
 import dev.vaibhav.newsapp.data.local.ArticleLocalDataSource
 import dev.vaibhav.newsapp.data.local.DatabaseDriverFactory
 import dev.vaibhav.newsapp.data.local.SavedArticleDataSource
