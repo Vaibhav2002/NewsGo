@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import dev.vaibhav.newsapp.android.presentation.components.AppBar
 import dev.vaibhav.newsapp.android.presentation.components.NewsItem
+import dev.vaibhav.newsapp.android.presentation.components.articlesList
 import dev.vaibhav.newsapp.android.presentation.components.emptyStates.NoResults
 import dev.vaibhav.newsapp.domain.models.Article
 
@@ -92,16 +93,11 @@ private fun SavedArticleScreenContent(
                 contentPadding = PaddingValues(16.dp),
                 verticalArrangement = Arrangement.spacedBy(24.dp)
             ){
-                items(uiState.articles, key = Article::url){
-                    NewsItem(
-                        article = it,
-                        onClick = navigateToDetailScreen,
-                        onSaveClick = viewModel::onSaveToggled,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .animateItemPlacement(tween(durationMillis = 500))
-                    )
-                }
+                articlesList(
+                    articles = uiState.articles,
+                    onArticleClick = navigateToDetailScreen,
+                    onArticleSaveClick = viewModel::onSaveToggled
+                )
             }
         }
     }
