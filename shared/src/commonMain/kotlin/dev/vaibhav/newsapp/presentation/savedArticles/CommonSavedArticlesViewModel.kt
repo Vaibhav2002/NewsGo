@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 
 class CommonSavedArticlesViewModel(
     private val savedNewsRepo: SavedNewsRepo,
-    scope:CoroutineScope? = null
+    scope: CoroutineScope? = null
 ) {
 
     private val viewModelScope = scope ?: CoroutineScope(Dispatchers.Main)
@@ -25,7 +25,7 @@ class CommonSavedArticlesViewModel(
         .toCommonStateFlow()
 
     fun onSaveToggled(article: Article) = viewModelScope.launch {
-        if(article.saved?.isSaved == true)
+        if (article.saved?.isSaved == true)
             savedNewsRepo.unSaveArticle(article)
         else savedNewsRepo.saveArticle(article)
     }

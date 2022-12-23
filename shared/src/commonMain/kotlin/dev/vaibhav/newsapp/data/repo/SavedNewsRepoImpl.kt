@@ -1,7 +1,6 @@
 package dev.vaibhav.newsapp.data.repo
 
 import database.ArticleEntity
-import database.SavedArticle
 import dev.vaibhav.newsapp.data.local.SavedArticleDataSource
 import dev.vaibhav.newsapp.domain.mappers.toArticle
 import dev.vaibhav.newsapp.domain.mappers.toArticleEntity

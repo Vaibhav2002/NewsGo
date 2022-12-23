@@ -9,7 +9,6 @@ import dev.vaibhav.newsapp.utils.flows.toStateFlow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
@@ -18,10 +17,8 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.newCoroutineContext
 
 class CommonHomeViewModel(
     private val newsRepo: NewsRepo,
@@ -41,7 +38,13 @@ class CommonHomeViewModel(
         newsRepo.articles.map { it.filter { it.topic == topic } }
     }
 
-    val uiState = combine(topic, isLoading, news, error, isRefreshing) { topic, loading, articles, error, refreshing ->
+    val uiState = combine(
+        topic,
+        isLoading,
+        news,
+        error,
+        isRefreshing
+    ) { topic, loading, articles, error, refreshing ->
         HomeScreenState(
             articles = articles,
             topic = topic,
@@ -68,14 +71,14 @@ class CommonHomeViewModel(
         this.topic.update { topic }
     }
 
-    fun onSavePress(article:Article) = viewModelScope.launch {
-        if(article.saved?.isSaved == true) savedNewsRepo.unSaveArticle(article)
+    fun onSavePress(article: Article) = viewModelScope.launch {
+        if (article.saved?.isSaved == true) savedNewsRepo.unSaveArticle(article)
         else savedNewsRepo.saveArticle(article)
     }
 
     fun onRefresh() = viewModelScope.launch {
         isRefreshing.emit(true)
-        if(topic.value == Topic.Headlines) newsRepo.fetchTopHeadlines()
+        if (topic.value == Topic.Headlines) newsRepo.fetchTopHeadlines()
         else newsRepo.fetchNewsByTopic(topic.value)
         isRefreshing.emit(false)
     }

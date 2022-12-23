@@ -1,6 +1,5 @@
 package dev.vaibhav.newsapp.presentation.articleDetail
 
-import dev.vaibhav.newsapp.domain.models.Article
 import dev.vaibhav.newsapp.domain.repo.NewsRepo
 import dev.vaibhav.newsapp.domain.repo.SavedNewsRepo
 import dev.vaibhav.newsapp.utils.DateTimeUtil
@@ -8,11 +7,7 @@ import dev.vaibhav.newsapp.utils.flows.toCommonStateFlow
 import dev.vaibhav.newsapp.utils.flows.toStateFlow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.launch

@@ -7,6 +7,6 @@ interface Serializer<T> {
     val json: Json
         get() = Json { coerceInputValues = true }
 
-    fun serialize(data:T):String
-    fun deSerialize(data:String):T
+    fun serialize(data: T): String
+    fun deSerialize(data: String): T
 }

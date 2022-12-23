@@ -11,7 +11,7 @@ class ArticleLocalDataSource(database: NewsDatabase) {
 
     val articles = queries.getAllArticles().asFlow().mapToList()
 
-    suspend fun insertArticles(articles:List<ArticleEntity>) = articles.forEach {
+    suspend fun insertArticles(articles: List<ArticleEntity>) = articles.forEach {
         queries.insertArticle(
             author = it.author,
             content = it.content,
@@ -25,11 +25,11 @@ class ArticleLocalDataSource(database: NewsDatabase) {
         )
     }
 
-    suspend fun getArticleByUrl(url:String) = queries.getArticleByUrl(url).executeAsOne()
+    suspend fun getArticleByUrl(url: String) = queries.getArticleByUrl(url).executeAsOne()
 
 //    suspend fun deleteArticleByUrl(id: Long) = queries.deleteArticleById(id)
 
-    suspend fun deleteArticleByTopic(topic:String) = queries.deleteArticlesByType(topic)
+    suspend fun deleteArticleByTopic(topic: String) = queries.deleteArticlesByType(topic)
 
     suspend fun deleteAll() = queries.deleteAll()
 

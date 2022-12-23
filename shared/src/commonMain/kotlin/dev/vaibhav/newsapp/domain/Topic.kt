@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 sealed class Topic(val topic: String) {
     @Serializable
-    object Headlines:Topic("Headlines")
+    object Headlines : Topic("Headlines")
 
     @Serializable
     object Sports : Topic("Sports")
@@ -20,8 +20,8 @@ sealed class Topic(val topic: String) {
     object Entertainment : Topic("Entertainment")
 
 
-    companion object{
-        fun fromTopic(topic:String):Topic = when(topic){
+    companion object {
+        fun fromTopic(topic: String): Topic = when (topic) {
             Headlines.topic -> Headlines
             Sports.topic -> Sports
             Politics.topic -> Politics

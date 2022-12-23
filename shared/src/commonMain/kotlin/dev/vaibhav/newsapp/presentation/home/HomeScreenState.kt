@@ -8,8 +8,8 @@ data class HomeScreenState(
     val topic: Topic = Topic.Headlines,
     val isLoading: Boolean = false,
     val error: String? = null,
-    val isRefreshing:Boolean = false
-){
+    val isRefreshing: Boolean = false
+) {
     val topics = listOf(
         Topic.Headlines, Topic.Sports, Topic.Politics,
         Topic.Entertainment, Topic.Technology

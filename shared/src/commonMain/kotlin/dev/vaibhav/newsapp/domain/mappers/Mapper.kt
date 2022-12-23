@@ -28,7 +28,7 @@ fun List<ArticleEntity>.toArticles(
 
 fun Article.toArticleEntity() = ArticleEntity(
     author = author,
-    content = content ,
+    content = content,
     description = description,
     published_at = DateTimeUtil.toInstant(timeStamp),
     source = source?.let(sourceSerializer::serialize),

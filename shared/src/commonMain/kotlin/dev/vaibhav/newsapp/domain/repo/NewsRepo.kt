@@ -10,11 +10,11 @@ interface NewsRepo {
 
     suspend fun fetchAllArticles()
 
-    suspend fun fetchTopHeadlines(country:String = "in")
+    suspend fun fetchTopHeadlines(country: String = "in")
 
     suspend fun fetchNewsByTopic(topic: Topic)
 
-    suspend fun getArticleByUrl(url:String):Article
+    suspend fun getArticleByUrl(url: String): Article
 
 //    suspend fun searchNews(query:String):List<Article>
 }
