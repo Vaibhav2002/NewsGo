@@ -2,6 +2,7 @@ package dev.vaibhav.newsapp.presentation.savedArticles
 
 import dev.vaibhav.newsapp.domain.models.Article
 import dev.vaibhav.newsapp.domain.repo.SavedNewsRepo
+import dev.vaibhav.newsapp.domain.usecases.SaveArticleUseCase
 import dev.vaibhav.newsapp.utils.flows.toCommonStateFlow
 import dev.vaibhav.newsapp.utils.flows.toStateFlow
 import kotlinx.coroutines.CoroutineScope
@@ -11,6 +12,7 @@ import kotlinx.coroutines.launch
 
 class CommonSavedArticlesViewModel(
     private val savedNewsRepo: SavedNewsRepo,
+    private val saveArticleUseCase: SaveArticleUseCase,
     scope: CoroutineScope? = null
 ) {
 
@@ -25,8 +27,6 @@ class CommonSavedArticlesViewModel(
         .toCommonStateFlow()
 
     fun onSaveToggled(article: Article) = viewModelScope.launch {
-        if (article.saved?.isSaved == true)
-            savedNewsRepo.unSaveArticle(article)
-        else savedNewsRepo.saveArticle(article)
+        saveArticleUseCase(article)
     }
 }

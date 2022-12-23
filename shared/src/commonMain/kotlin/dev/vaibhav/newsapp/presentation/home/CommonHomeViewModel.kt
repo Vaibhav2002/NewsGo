@@ -1,9 +1,9 @@
 package dev.vaibhav.newsapp.presentation.home
 
-import dev.vaibhav.newsapp.domain.Topic
 import dev.vaibhav.newsapp.domain.models.Article
+import dev.vaibhav.newsapp.domain.models.Topic
 import dev.vaibhav.newsapp.domain.repo.NewsRepo
-import dev.vaibhav.newsapp.domain.repo.SavedNewsRepo
+import dev.vaibhav.newsapp.domain.usecases.SaveArticleUseCase
 import dev.vaibhav.newsapp.utils.flows.toCommonStateFlow
 import dev.vaibhav.newsapp.utils.flows.toStateFlow
 import kotlinx.coroutines.CoroutineScope
@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 
 class CommonHomeViewModel(
     private val newsRepo: NewsRepo,
-    private val savedNewsRepo: SavedNewsRepo,
+    private val saveArticleUseCase: SaveArticleUseCase,
     scope: CoroutineScope?
 ) {
     private val viewModelScope = scope ?: CoroutineScope(Dispatchers.Main)
@@ -72,8 +72,7 @@ class CommonHomeViewModel(
     }
 
     fun onSavePress(article: Article) = viewModelScope.launch {
-        if (article.saved?.isSaved == true) savedNewsRepo.unSaveArticle(article)
-        else savedNewsRepo.saveArticle(article)
+        saveArticleUseCase(article)
     }
 
     fun onRefresh() = viewModelScope.launch {

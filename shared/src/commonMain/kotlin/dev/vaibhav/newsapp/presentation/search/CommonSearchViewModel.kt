@@ -3,6 +3,7 @@ package dev.vaibhav.newsapp.presentation.search
 import dev.vaibhav.newsapp.domain.models.Article
 import dev.vaibhav.newsapp.domain.repo.NewsRepo
 import dev.vaibhav.newsapp.domain.repo.SavedNewsRepo
+import dev.vaibhav.newsapp.domain.usecases.SaveArticleUseCase
 import dev.vaibhav.newsapp.utils.flows.enableLoading
 import dev.vaibhav.newsapp.utils.flows.safeCatch
 import dev.vaibhav.newsapp.utils.flows.toCommonStateFlow
@@ -20,7 +21,7 @@ import kotlinx.coroutines.launch
 
 class CommonSearchViewModel(
     private val newsRepo: NewsRepo,
-    private val savedNewsRepo: SavedNewsRepo,
+    private val saveArticleUseCase: SaveArticleUseCase,
     scope:CoroutineScope?
 ) {
 
@@ -54,11 +55,8 @@ class CommonSearchViewModel(
         searchQuery.update { query }
     }
 
-    fun onSaveToggled(article:Article) = viewModelScope.launch{
-        if(article.saved?.isSaved == true)
-            savedNewsRepo.unSaveArticle(article)
-        else savedNewsRepo.saveArticle(article)
+    fun onSaveToggled(article:Article) = viewModelScope.launch {
+        saveArticleUseCase(article)
     }
-
 
 }

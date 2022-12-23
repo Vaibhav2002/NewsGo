@@ -29,8 +29,8 @@ import dev.vaibhav.newsapp.android.presentation.components.AppBar
 import dev.vaibhav.newsapp.android.presentation.components.articlesList
 import dev.vaibhav.newsapp.android.presentation.components.emptyStates.NoResults
 import dev.vaibhav.newsapp.android.presentation.components.topicChips
-import dev.vaibhav.newsapp.domain.Topic
 import dev.vaibhav.newsapp.domain.models.Article
+import dev.vaibhav.newsapp.domain.models.Topic
 import dev.vaibhav.newsapp.presentation.home.HomeScreenState
 
 @OptIn(ExperimentalMaterial3Api::class)

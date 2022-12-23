@@ -7,11 +7,16 @@ import dev.vaibhav.newsapp.data.remote.dataSource.news.NewsRemoteDataSource
 import dev.vaibhav.newsapp.data.repo.NewsRepoImpl
 import dev.vaibhav.newsapp.data.repo.SavedNewsRepoImpl
 import dev.vaibhav.newsapp.database.NewsDatabase
+import dev.vaibhav.newsapp.domain.usecases.SaveArticleUseCase
 
 class AppModule {
 
     private fun providesDatabase() = NewsDatabase(
         driver = DatabaseDriverFactory().createDriver(),
+    )
+
+    private fun providesSavedArticleDataSource() = SavedArticleDataSource(
+        providesDatabase()
     )
 
     val articleRepo by lazy {
@@ -23,6 +28,10 @@ class AppModule {
     }
 
     val savedNewsRepo by lazy {
-        SavedNewsRepoImpl(SavedArticleDataSource(providesDatabase()))
+        SavedNewsRepoImpl(providesSavedArticleDataSource())
+    }
+
+    val saveArticleUseCase by lazy {
+        SaveArticleUseCase(savedNewsRepo)
     }
 }

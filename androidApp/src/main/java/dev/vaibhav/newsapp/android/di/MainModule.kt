@@ -15,6 +15,7 @@ import dev.vaibhav.newsapp.data.repo.SavedNewsRepoImpl
 import dev.vaibhav.newsapp.database.NewsDatabase
 import dev.vaibhav.newsapp.domain.repo.NewsRepo
 import dev.vaibhav.newsapp.domain.repo.SavedNewsRepo
+import dev.vaibhav.newsapp.domain.usecases.SaveArticleUseCase
 import javax.inject.Singleton
 
 @Module
@@ -64,4 +65,9 @@ object MainModule {
         localDataSource: ArticleLocalDataSource,
         savedNewsRepo: SavedNewsRepo
     ): NewsRepo = NewsRepoImpl(dataSource, localDataSource, savedNewsRepo)
+
+    @Provides
+    fun providesSaveArticleUseCase(
+        savedNewsRepo: SavedNewsRepo
+    ):SaveArticleUseCase = SaveArticleUseCase(savedNewsRepo)
 }
