@@ -28,4 +28,6 @@ class HomeViewModel @Inject constructor(
     fun onTopicChange(topic: Topic) = viewModel.onTopicChange(topic)
 
     fun onSaveClick(article: Article) = viewModel.onSavePress(article)
+
+    fun onRefresh() = viewModel.onRefresh()
 }
