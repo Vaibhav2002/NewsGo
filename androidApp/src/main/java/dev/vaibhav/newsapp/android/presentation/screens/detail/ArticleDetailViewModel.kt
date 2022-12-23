@@ -4,7 +4,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.vaibhav.newsapp.android.domain.util.onIo
 import dev.vaibhav.newsapp.android.presentation.screens.navigation.Screens
 import dev.vaibhav.newsapp.domain.repo.NewsRepo
 import dev.vaibhav.newsapp.domain.repo.SavedNewsRepo
@@ -27,7 +26,7 @@ class ArticleDetailViewModel @Inject constructor(
         savedNewsRepo = savedNewsRepo
     )
 
-    val uiState = viewModel.uiState.onIo()
+    val uiState = viewModel.uiState
 
     fun toggleSave() = viewModel.toggleSave()
 }
