@@ -1,7 +1,7 @@
 package dev.vaibhav.newsapp.presentation.home
 
-import dev.vaibhav.newsapp.domain.Topic
 import dev.vaibhav.newsapp.domain.models.Article
+import dev.vaibhav.newsapp.domain.models.Topic
 
 data class HomeScreenState(
     val articles: List<Article> = emptyList(),

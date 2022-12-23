@@ -1,4 +1,4 @@
-package dev.vaibhav.newsapp.domain
+package dev.vaibhav.newsapp.domain.models
 
 import kotlinx.serialization.Serializable
 

@@ -1,6 +1,5 @@
 package dev.vaibhav.newsapp.domain.models
 
-import dev.vaibhav.newsapp.domain.Topic
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
 

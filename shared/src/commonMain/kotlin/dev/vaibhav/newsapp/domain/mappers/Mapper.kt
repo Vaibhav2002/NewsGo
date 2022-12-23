@@ -4,10 +4,10 @@ import database.ArticleEntity
 import database.SavedArticle
 import dev.vaibhav.newsapp.data.models.remote.ArticleDto
 import dev.vaibhav.newsapp.data.models.remote.SourceDto
-import dev.vaibhav.newsapp.domain.Topic
 import dev.vaibhav.newsapp.domain.models.Article
 import dev.vaibhav.newsapp.domain.models.Saved
 import dev.vaibhav.newsapp.domain.models.Source
+import dev.vaibhav.newsapp.domain.models.Topic
 import dev.vaibhav.newsapp.utils.DateTimeUtil
 import dev.vaibhav.newsapp.utils.serialize.SourceSerializer
 

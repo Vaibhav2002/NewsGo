@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class)
 
 package dev.vaibhav.newsapp.android.presentation.components
 
@@ -13,7 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import dev.vaibhav.newsapp.domain.Topic
+import dev.vaibhav.newsapp.domain.models.Topic
 
 fun LazyListScope.topicChips(
     topics: List<Topic>,

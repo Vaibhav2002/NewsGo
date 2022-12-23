@@ -4,10 +4,10 @@ import dev.vaibhav.newsapp.data.local.ArticleLocalDataSource
 import dev.vaibhav.newsapp.data.models.mapper.toArticlesEntities
 import dev.vaibhav.newsapp.data.models.remote.ArticleDto
 import dev.vaibhav.newsapp.data.remote.dataSource.news.NewsRemoteDataSource
-import dev.vaibhav.newsapp.domain.Topic
 import dev.vaibhav.newsapp.domain.mappers.toArticle
 import dev.vaibhav.newsapp.domain.mappers.toArticles
 import dev.vaibhav.newsapp.domain.models.Article
+import dev.vaibhav.newsapp.domain.models.Topic
 import dev.vaibhav.newsapp.domain.repo.NewsRepo
 import dev.vaibhav.newsapp.domain.repo.SavedNewsRepo
 import kotlinx.coroutines.async

@@ -2,7 +2,7 @@ package dev.vaibhav.newsapp.data.models.mapper
 
 import database.ArticleEntity
 import dev.vaibhav.newsapp.data.models.remote.ArticleDto
-import dev.vaibhav.newsapp.domain.Topic
+import dev.vaibhav.newsapp.domain.models.Topic
 import dev.vaibhav.newsapp.utils.serialize.SourceDtoSerializer
 
 val sourceDtoSerializer = SourceDtoSerializer()
