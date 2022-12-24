@@ -7,6 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.vaibhav.newsapp.android.presentation.screens.navigation.Screens
 import dev.vaibhav.newsapp.domain.models.Article
 import dev.vaibhav.newsapp.domain.repo.NewsRepo
+import dev.vaibhav.newsapp.domain.repo.SavedNewsRepo
 import dev.vaibhav.newsapp.domain.usecases.SaveArticleUseCase
 import dev.vaibhav.newsapp.presentation.articleDetail.CommonArticleDetailViewModel
 import dev.vaibhav.newsapp.utils.serialize.JsonSerializer
@@ -14,6 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ArticleDetailViewModel @Inject constructor(
+    savedNewsRepo: SavedNewsRepo,
     savedArticleUseCase: SaveArticleUseCase,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
@@ -24,6 +26,7 @@ class ArticleDetailViewModel @Inject constructor(
     private val viewModel = CommonArticleDetailViewModel(
         article = article!!,
         scope = viewModelScope,
+        savedNewsRepo = savedNewsRepo,
         saveArticleUseCase = savedArticleUseCase
     )
 
