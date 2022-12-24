@@ -1,4 +1,8 @@
-@file:OptIn(ExperimentalMaterialApi::class)
+@file:OptIn(
+    ExperimentalMaterialApi::class,
+    ExperimentalAnimationApi::class,
+    ExperimentalFoundationApi::class
+)
 
 package dev.vaibhav.newsapp.android.presentation.screens.home
 
@@ -39,7 +43,8 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
     navigateToDetail: (Article) -> Unit,
-    navigateToSavedScreen: () -> Unit
+    navigateToSavedScreen: () -> Unit,
+    navigateToSearchScreen:()->Unit = {}
 ) {
     val state by viewModel.uiState.collectAsState()
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
@@ -49,7 +54,8 @@ fun HomeScreen(
             HomeAppBar(
                 scrollBehavior = scrollBehavior,
                 topic = state.topic,
-                navigateToSavedScreen
+                navigateToSavedScreen = navigateToSavedScreen,
+                navigateToSearchScreen = navigateToSearchScreen
             )
         },
     ) {
@@ -64,35 +70,6 @@ fun HomeScreen(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun HomeAppBar(
-    scrollBehavior: TopAppBarScrollBehavior,
-    topic: Topic,
-    navigateToSavedScreen: () -> Unit
-) {
-    AppBar(
-        title = topic.topic,
-        scrollBehavior = scrollBehavior,
-        actions = {
-            FilledIconButton(
-                onClick = navigateToSavedScreen,
-                colors = IconButtonDefaults.filledIconButtonColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp),
-                    contentColor = MaterialTheme.colorScheme.secondary
-                ),
-                modifier = Modifier.clip(CircleShape)
-            ) {
-                Icon(
-                    imageVector = Icons.Filled.Favorite,
-                    contentDescription = "Saved Screen"
-                )
-            }
-        }
-    )
-}
-
-@OptIn(ExperimentalFoundationApi::class, ExperimentalAnimationApi::class)
 @Composable
 private fun HomeScreenContent(
     modifier: Modifier = Modifier,

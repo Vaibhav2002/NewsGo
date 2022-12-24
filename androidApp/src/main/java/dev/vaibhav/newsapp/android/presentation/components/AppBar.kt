@@ -1,7 +1,6 @@
 package dev.vaibhav.newsapp.android.presentation.components
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
@@ -19,7 +18,7 @@ fun AppBar(
     isBackEnabled: Boolean = false,
     scrollBehavior: TopAppBarScrollBehavior,
     textStyle: TextStyle = MaterialTheme.typography.displaySmall,
-    actions: @Composable RowScope.() -> Unit = {},
+    buttons: List<AppBarButton> = emptyList(),
     onBackPress: () -> Unit = {}
 ) {
     LargeTopAppBar(
@@ -35,7 +34,9 @@ fun AppBar(
                         .padding(8.dp)
                 )
         },
-        actions = actions,
+        actions = {
+            buttons.forEach { AppBarButton(appBarButton = it) }
+        },
         scrollBehavior = scrollBehavior
     )
 }
