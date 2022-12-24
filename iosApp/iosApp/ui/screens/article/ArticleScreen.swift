@@ -13,7 +13,7 @@ import shared
 struct ArticleScreen: View {
     
     let appModule:AppModule
-    let articleUrl:String
+    let article:Article?
     
     @StateObject private var viewModel = ArticleViewModel()
     
@@ -54,7 +54,9 @@ struct ArticleScreen: View {
         }
         .navigationBarTitle(uiState.title, displayMode: .inline)
         .onAppear{
-            viewModel.setDependencies(appModule: appModule, articleUrl: articleUrl)
+            if let article {
+                viewModel.setDependencies(appModule: appModule, article: article)
+            }
             viewModel.collectUiState()
         }
         .onDisappear{ viewModel.dispose() }

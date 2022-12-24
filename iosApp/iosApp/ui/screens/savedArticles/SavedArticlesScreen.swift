@@ -23,7 +23,7 @@ struct SavedArticlesScreen: View {
             ScrollView{
                 VStack{
                     NavigationLink(
-                        destination: ArticleScreen(appModule: appModule, articleUrl: selectedArticle?.url ?? ""),
+                        destination: ArticleScreen(appModule: appModule, article: selectedArticle),
                         isActive: $isArticleSelected
                     ) { EmptyView() }
                     ArticlesList(

@@ -14,7 +14,7 @@ extension ArticleScreen{
     @MainActor class ArticleViewModel:ObservableObject{
         
         private var appModule:AppModule?
-        private var articleUrl:String?
+        private var article:Article?
         
         private var viewModel:CommonArticleDetailViewModel?
         
@@ -28,13 +28,12 @@ extension ArticleScreen{
             isSaved: false
         )
         
-        func setDependencies(appModule: AppModule, articleUrl: String){
+        func setDependencies(appModule: AppModule, article: Article){
             self.appModule = appModule
-            self.articleUrl = articleUrl
+            self.article = article
             
             self.viewModel = CommonArticleDetailViewModel(
-                articleUrl: articleUrl,
-                newsRepo: appModule.articleRepo,
+                article: article,
                 saveArticleUseCase: appModule.saveArticleUseCase,
                 scope: nil
             )
