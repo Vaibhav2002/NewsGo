@@ -1,5 +1,6 @@
 package dev.vaibhav.newsapp.presentation.articleDetail
 
+import dev.vaibhav.newsapp.domain.models.Article
 import dev.vaibhav.newsapp.domain.repo.NewsRepo
 import dev.vaibhav.newsapp.domain.repo.SavedNewsRepo
 import dev.vaibhav.newsapp.domain.usecases.SaveArticleUseCase
@@ -8,25 +9,25 @@ import dev.vaibhav.newsapp.utils.flows.toCommonStateFlow
 import dev.vaibhav.newsapp.utils.flows.toStateFlow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.launch
 
 class CommonArticleDetailViewModel(
-    private val articleUrl: String,
-    newsRepo: NewsRepo,
+    article:Article,
     private val saveArticleUseCase: SaveArticleUseCase,
     scope: CoroutineScope? = null
 ) {
 
     private val viewModelScope = scope ?: CoroutineScope(Dispatchers.Main)
 
-    private val article = newsRepo.articles.mapNotNull {
-        it.find { it.url == articleUrl }
-    }.toStateFlow(viewModelScope, null)
+    private val _article = MutableStateFlow(article)
 
-    val uiState = article.filterNotNull().mapLatest {
+    val uiState = _article.map {
         ArticleDetailScreenState(
             image = it.urlToImage,
             url = it.url,
@@ -41,9 +42,6 @@ class CommonArticleDetailViewModel(
         .toCommonStateFlow()
 
     fun toggleSave() = viewModelScope.launch {
-        article.value?.let {
-            saveArticleUseCase(it)
-        }
+        saveArticleUseCase(_article.value)
     }
-
 }
