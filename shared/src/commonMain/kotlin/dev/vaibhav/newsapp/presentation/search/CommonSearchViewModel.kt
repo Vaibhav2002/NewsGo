@@ -16,11 +16,13 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterNot
 import kotlinx.coroutines.flow.mapLatest
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class CommonSearchViewModel(
     private val newsRepo: NewsRepo,
+    private val savedNewsRepo: SavedNewsRepo,
     private val saveArticleUseCase: SaveArticleUseCase,
     scope:CoroutineScope?
 ) {
@@ -36,9 +38,15 @@ class CommonSearchViewModel(
         .mapLatest { it.trim() }
         .filterNot { it.isEmpty() }
         .distinctUntilChanged()
-        .mapLatest { Result.success(newsRepo.searchNews(it)) }
+        .onEach { isLoading.emit(true) }
+        .mapLatest { newsRepo.searchNews(it) }
+        .combine(savedNewsRepo.savedArticle){ articles, saved->
+            val savedMap = saved.associate { it.url to it.saved!! }
+            articles.map { it.copy(saved = savedMap[it.url]) }
+        }
+        .mapLatest { Result.success(it)}
         .safeCatch{ emit(Result.failure(it)) }
-        .enableLoading(isLoading)
+        .onEach { isLoading.emit(false) }
 
     val uiState = combine(searchQuery, articles, isLoading){ query, articles, loading->
         SearchScreenState(

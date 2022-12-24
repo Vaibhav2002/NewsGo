@@ -26,4 +26,6 @@ sealed class Screens(val route: String) {
     }
 
     object SavedArticles : Screens("savedArticles")
+
+    object Search : Screens("searchScreen")
 }
