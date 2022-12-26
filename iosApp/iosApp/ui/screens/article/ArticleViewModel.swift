@@ -13,7 +13,6 @@ import shared
 extension ArticleScreen{
     @MainActor class ArticleViewModel:ObservableObject{
         
-        private var appModule:AppModule?
         private var article:Article?
         
         private var viewModel:CommonArticleDetailViewModel?
@@ -28,13 +27,13 @@ extension ArticleScreen{
             isSaved: false
         )
         
-        func setDependencies(appModule: AppModule, article: Article){
-            self.appModule = appModule
+        func setDependencies(article: Article){
             self.article = article
             
             self.viewModel = CommonArticleDetailViewModel(
                 article: article,
-                saveArticleUseCase: appModule.saveArticleUseCase,
+                saveArticleUseCase: AppModule.shared.saveArticleUseCase,
+                savedNewsRepo: AppModule.shared.savedNewsRepo,
                 scope: nil
             )
         }

@@ -13,17 +13,13 @@ import shared
 extension HomeScreen{
     @MainActor class HomeViewModel:ObservableObject {
         
-        private var appModule:AppModule?
-        private var viewModel:CommonHomeViewModel?
         
-        func setAppModule(appModule: AppModule){
-            self.appModule = appModule
-            self.viewModel = CommonHomeViewModel(
-                newsRepo: appModule.articleRepo,
-                saveArticleUseCase: appModule.saveArticleUseCase,
-                scope:nil
-            )
-        }
+
+        private let viewModel = CommonHomeViewModel(
+            newsRepo: AppModule.shared.articleRepo,
+            saveArticleUseCase: AppModule.shared.saveArticleUseCase,
+            scope:nil
+        )
         
         @Published var uiState = HomeScreenState(
             articles: [],
@@ -41,7 +37,7 @@ extension HomeScreen{
         
         @MainActor
         func collectUiState(){
-            disposableHandle = viewModel?.uiState.subscribe { state in
+            disposableHandle = viewModel.uiState.subscribe { state in
                 if let state {
                     self.uiState = state
                 }
@@ -49,15 +45,15 @@ extension HomeScreen{
         }
         
         func onTopicPressed(topic:Topic){
-            viewModel?.onTopicChange(topic: topic)
+            viewModel.onTopicChange(topic: topic)
         }
         
         func onArticleLikeToggled(article:Article){
-            viewModel?.onSavePress(article: article)
+            viewModel.onSavePress(article: article)
         }
         
         func onRefresh(){
-            viewModel?.onRefresh()
+            viewModel.onRefresh()
         }
         
         func onDispose(){

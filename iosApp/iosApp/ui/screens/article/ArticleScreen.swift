@@ -12,7 +12,6 @@ import shared
 @available(iOS 15.0, *)
 struct ArticleScreen: View {
     
-    let appModule:AppModule
     let article:Article?
     
     @StateObject private var viewModel = ArticleViewModel()
@@ -55,7 +54,7 @@ struct ArticleScreen: View {
         .navigationBarTitle(uiState.title, displayMode: .inline)
         .onAppear{
             if let article {
-                viewModel.setDependencies(appModule: appModule, article: article)
+                viewModel.setDependencies(article: article)
             }
             viewModel.collectUiState()
         }

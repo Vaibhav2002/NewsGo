@@ -12,7 +12,6 @@ import shared
 @available(iOS 15.0, *)
 struct HomeScreen: View {
     
-    let appModule:AppModule
     
     @StateObject private var viewModel = HomeViewModel()
     @State private var isArticleSelected = false
@@ -24,11 +23,11 @@ struct HomeScreen: View {
             ScrollView{
                 VStack{
                     NavigationLink(
-                        destination:ArticleScreen(appModule: appModule, article: selectedArticle),
+                        destination:ArticleScreen(article: selectedArticle),
                         isActive: $isArticleSelected
                     ){ EmptyView() }
                     
-                    NavigationLink(destination: SavedArticlesScreen(appModule: appModule), isActive: $isSavedButtonPressed){
+                    NavigationLink(destination: SavedArticlesScreen(), isActive: $isSavedButtonPressed){
                         EmptyView()
                     }
                     
@@ -53,7 +52,6 @@ struct HomeScreen: View {
             .navigationBarItems(trailing: SavedButton { isSavedButtonPressed = true } )
             .navigationTitle(viewModel.uiState.topic.topic)
             .onAppear{
-                viewModel.setAppModule(appModule: appModule)
                 viewModel.collectUiState()
             }
             .onDisappear{

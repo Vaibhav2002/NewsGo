@@ -9,7 +9,7 @@ import dev.vaibhav.newsapp.data.repo.SavedNewsRepoImpl
 import dev.vaibhav.newsapp.database.NewsDatabase
 import dev.vaibhav.newsapp.domain.usecases.SaveArticleUseCase
 
-class AppModule {
+object AppModule {
 
     private fun providesDatabase() = NewsDatabase(
         driver = DatabaseDriverFactory().createDriver(),

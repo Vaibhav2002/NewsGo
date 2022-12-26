@@ -13,24 +13,19 @@ import shared
 extension SavedArticlesScreen{
     @MainActor class SavedArticlesViewModel:ObservableObject{
         
-        private var appModule:AppModule?
-        private var viewModel:CommonSavedArticlesViewModel?
+        private var viewModel = CommonSavedArticlesViewModel(
+            savedNewsRepo: AppModule.shared.savedNewsRepo,
+            saveArticleUseCase: AppModule.shared.saveArticleUseCase,
+            scope: nil
+        )
         
         @Published private(set) var uiState = SavedArticlesScreenState(articles: [])
         
         private var disposableHandle:DisposableHandle?
 
-        func setAppModule(appModule:AppModule){
-            self.appModule = appModule
-            viewModel = CommonSavedArticlesViewModel(
-                savedNewsRepo: appModule.savedNewsRepo,
-                saveArticleUseCase: appModule.saveArticleUseCase,
-                scope: nil
-            )
-        }
         
         func collectUiState(){
-            disposableHandle = viewModel?.uiState.subscribe { state in
+            disposableHandle = viewModel.uiState.subscribe { state in
                 if let state{
                     self.uiState = state
                 }
@@ -38,7 +33,7 @@ extension SavedArticlesScreen{
         }
         
         func onSaveToggled(article:Article){
-            viewModel?.onSaveToggled(article: article)
+            viewModel.onSaveToggled(article: article)
         }
         
         func dispose(){

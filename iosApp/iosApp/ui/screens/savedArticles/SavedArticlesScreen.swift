@@ -12,7 +12,7 @@ import shared
 @available(iOS 15.0, *)
 struct SavedArticlesScreen: View {
     
-    let appModule:AppModule
+
     @StateObject private var viewModel = SavedArticlesViewModel()
     
     @State private var isArticleSelected = false
@@ -23,7 +23,7 @@ struct SavedArticlesScreen: View {
             ScrollView{
                 VStack{
                     NavigationLink(
-                        destination: ArticleScreen(appModule: appModule, article: selectedArticle),
+                        destination: ArticleScreen(article: selectedArticle),
                         isActive: $isArticleSelected
                     ) { EmptyView() }
                     ArticlesList(
@@ -37,7 +37,6 @@ struct SavedArticlesScreen: View {
                 }
             }
             .onAppear{
-                viewModel.setAppModule(appModule: appModule)
                 viewModel.collectUiState()
             }
             .onDisappear{
