@@ -13,8 +13,6 @@ import shared
 extension HomeScreen{
     @MainActor class HomeViewModel:ObservableObject {
         
-        
-
         private let viewModel = CommonHomeViewModel(
             newsRepo: AppModule.shared.articleRepo,
             saveArticleUseCase: AppModule.shared.saveArticleUseCase,

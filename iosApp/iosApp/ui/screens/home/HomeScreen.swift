@@ -17,6 +17,7 @@ struct HomeScreen: View {
     @State private var isArticleSelected = false
     @State private var selectedArticle:Article? = nil
     @State private var isSavedButtonPressed = false
+    @State private var isSearchButtonPressed = false
     
     var body: some View {
         NavigationView{
@@ -28,6 +29,10 @@ struct HomeScreen: View {
                     ){ EmptyView() }
                     
                     NavigationLink(destination: SavedArticlesScreen(), isActive: $isSavedButtonPressed){
+                        EmptyView()
+                    }
+                    
+                    NavigationLink(destination : SearchScreen(), isActive: $isSearchButtonPressed){
                         EmptyView()
                     }
                     
@@ -49,7 +54,12 @@ struct HomeScreen: View {
                     )
                 }
             }
-            .navigationBarItems(trailing: SavedButton { isSavedButtonPressed = true } )
+            .navigationBarItems(
+                trailing: AppBarButtons(
+                    onSaveClick: { isSavedButtonPressed = true },
+                    onSearchClick: { isSearchButtonPressed = true }
+                )
+            )
             .navigationTitle(viewModel.uiState.topic.topic)
             .onAppear{
                 viewModel.collectUiState()
@@ -65,6 +75,21 @@ struct HomeScreen: View {
     }
 }
 
+@available(iOS 15.0, *)
+struct AppBarButtons : View{
+    
+    let onSaveClick:()->Void
+    let onSearchClick:()->Void
+
+    
+    var body: some View{
+        HStack{
+            SavedButton(onPress: onSaveClick)
+            Spacer().frame(width: 8)
+            SearchButton(onPress: onSearchClick)
+        }
+    }
+}
 
 @available(iOS 15.0, *)
 struct TopicList : View{
@@ -94,7 +119,19 @@ struct SavedButton : View{
     
     var body: some View {
         Button(action: onPress){
-            Image(systemName: "heart.fill")
+            Image(systemName: "heart")
+        }
+    }
+}
+
+@available(iOS 15.0, *)
+struct SearchButton : View{
+    
+    let onPress:()->Void
+    
+    var body: some View {
+        Button(action: onPress){
+            Image(systemName: "magnifyingglass")
         }
     }
 }
