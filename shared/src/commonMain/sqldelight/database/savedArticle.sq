@@ -1,12 +1,11 @@
 CREATE TABLE SavedArticle(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
     author TEXT,
     content TEXT,
     description TEXT,
     published_at TEXT NOT NULL,
     source TEXT,
     title TEXT,
-    url TEXT NOT NULL,
+    url TEXT NOT NULL PRIMARY KEY,
     image_url TEXT,
     topic TEXT NOT NULL,
     savedTimestamp INTEGER NOT NULL
@@ -18,7 +17,6 @@ SELECT * FROM SavedArticle ORDER BY savedTimestamp DESC;
 insertArticle:
 INSERT OR REPLACE
 INTO SavedArticle(
-    id,
     author,
     content,
     description,
@@ -29,7 +27,7 @@ INTO SavedArticle(
     image_url,
     topic,
     savedTimestamp
-) VALUES (?,?,?,?,?,?,?,?,?,?,?);
+) VALUES (?,?,?,?,?,?,?,?,?,?);
 
 removeArticle:
-DELETE FROM SavedArticle WHERE id = ?;
+DELETE FROM SavedArticle WHERE url = ?;

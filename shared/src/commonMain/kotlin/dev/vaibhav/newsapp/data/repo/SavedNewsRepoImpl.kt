@@ -21,7 +21,8 @@ class SavedNewsRepoImpl(private val dataSource: SavedArticleDataSource) : SavedN
         dataSource.saveArticle(article.toArticleEntity())
 
     override suspend fun unSaveArticle(article: Article) {
-        article.saved?.saveId?.also { dataSource.unSaveArticle(it) }
+        if(article.saved == null) return
+        dataSource.unSaveArticle(article.url)
     }
 
     override suspend fun isSaved(article: ArticleEntity): Boolean {
@@ -30,6 +31,6 @@ class SavedNewsRepoImpl(private val dataSource: SavedArticleDataSource) : SavedN
 
     override suspend fun getSaved(article: ArticleEntity) =
         getSavedArticles().find { it.url == article.url }?.saved?.let {
-            Saved(it.saveId, true, it.timeStamp)
+            Saved(true, it.timeStamp)
         }
 }

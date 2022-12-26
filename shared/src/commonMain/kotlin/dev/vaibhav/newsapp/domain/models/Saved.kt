@@ -5,7 +5,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Saved(
-    val saveId: Long,
     val isSaved: Boolean,
     val timeStamp: LocalDateTime,
 )

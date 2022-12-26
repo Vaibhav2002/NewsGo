@@ -15,7 +15,6 @@ class SavedArticleDataSource(database: NewsDatabase) {
     suspend fun getSavedArticles() = queries.getAllSavedArticles().executeAsList()
 
     suspend fun saveArticle(article: ArticleEntity) = queries.insertArticle(
-        id = null,
         author = article.author,
         content = article.content,
         description = article.description,
@@ -28,5 +27,5 @@ class SavedArticleDataSource(database: NewsDatabase) {
         savedTimestamp = DateTimeUtil.nowInMillis
     )
 
-    suspend fun unSaveArticle(id: Long) = queries.removeArticle(id)
+    suspend fun unSaveArticle(url:String) = queries.removeArticle(url)
 }
