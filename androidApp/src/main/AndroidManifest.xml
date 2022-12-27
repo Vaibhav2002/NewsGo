@@ -4,6 +4,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+            android:icon="@mipmap/app_logo"
+            android:roundIcon="@mipmap/app_logo_round"
             android:label="NewsGo"
             android:name=".NewsApp"
             android:allowBackup="false"
