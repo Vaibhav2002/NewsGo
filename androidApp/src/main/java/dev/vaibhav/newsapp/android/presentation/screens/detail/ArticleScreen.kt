@@ -108,7 +108,7 @@ fun ArticleDetailContent(
         Spacer(modifier = Modifier.height(16.dp))
         ClickableText(
             text = content,
-            style = MaterialTheme.typography.bodyLarge,
+            style = MaterialTheme.typography.bodyMedium,
             modifier = Modifier
                 .fillMaxWidth()
                 .alpha(0.8f),

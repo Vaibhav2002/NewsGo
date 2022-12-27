@@ -12,6 +12,7 @@ import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -87,7 +88,7 @@ fun NewsItem(
             maxLines = 4,
             overflow = TextOverflow.Ellipsis,
             style = MaterialTheme.typography.bodyMedium,
-            color = Color.Gray
+            color = contentColorFor(MaterialTheme.colorScheme.surface).copy(alpha = 0.5f)
         )
         Spacer(modifier = Modifier.height(24.dp))
         Text(
@@ -96,7 +97,7 @@ fun NewsItem(
                 .align(Alignment.End)
                 .padding(end = 16.dp),
             style = MaterialTheme.typography.labelMedium,
-            color = Color.Gray,
+            color = contentColorFor(MaterialTheme.colorScheme.surface).copy(alpha = 0.5f)
         )
         Spacer(modifier = Modifier.height(16.dp))
     }
