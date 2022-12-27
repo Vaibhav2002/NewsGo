@@ -16,6 +16,7 @@ import dev.vaibhav.newsapp.android.presentation.screens.navigation.Screens.Home
 import dev.vaibhav.newsapp.android.presentation.screens.navigation.Screens.SavedArticles
 import dev.vaibhav.newsapp.android.presentation.screens.saved.SavedArticlesScreen
 import dev.vaibhav.newsapp.android.presentation.screens.search.SearchScreen
+import dev.vaibhav.newsapp.android.presentation.util.navigateSafe
 import dev.vaibhav.newsapp.domain.models.Article
 
 @Composable
@@ -25,7 +26,7 @@ fun MainNavHost(
 ) {
     val navigateBack: () -> Unit = { navController.popBackStack() }
     val navigateToDetail: (Article) -> Unit = {
-        navController.navigate(ArticleDetail.createRoute(it))
+        navController.navigateSafe(ArticleDetail.createRoute(it))
     }
     NavHost(
         navController = navController,
@@ -37,10 +38,10 @@ fun MainNavHost(
                 modifier = Modifier.fillMaxSize(),
                 navigateToDetail = navigateToDetail,
                 navigateToSavedScreen = {
-                    navController.navigate(SavedArticles.route)
+                    navController.navigateSafe(SavedArticles.route)
                 },
                 navigateToSearchScreen = {
-                    navController.navigate(Screens.Search.route)
+                    navController.navigateSafe(Screens.Search.route)
                 }
             )
         }
