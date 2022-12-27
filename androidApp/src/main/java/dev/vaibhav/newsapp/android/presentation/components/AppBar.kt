@@ -2,11 +2,13 @@ package dev.vaibhav.newsapp.android.presentation.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 
@@ -30,6 +32,7 @@ fun AppBar(
                     imageVector = Icons.Rounded.ArrowBack,
                     contentDescription = "Back",
                     modifier = Modifier
+                        .clip(CircleShape)
                         .clickable { onBackPress() }
                         .padding(8.dp)
                 )
