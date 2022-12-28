@@ -33,16 +33,18 @@ class CommonSearchViewModel(
 
     private val isLoading = MutableStateFlow(false)
 
+    private val savedArticles = savedNewsRepo.savedArticle
+        .mapLatest { saved-> saved.associate { it.url to it.saved!! } }
+
     private val articles = searchQuery
-        .debounce(1000L)
         .mapLatest { it.trim() }
         .filterNot { it.isEmpty() }
         .distinctUntilChanged()
+        .debounce(1000L)
         .onEach { isLoading.emit(true) }
         .mapLatest { newsRepo.searchNews(it) }
-        .combine(savedNewsRepo.savedArticle){ articles, saved->
-            val savedMap = saved.associate { it.url to it.saved!! }
-            articles.map { it.copy(saved = savedMap[it.url]) }
+        .combine(savedArticles){ articles, saved->
+            articles.map { it.copy(saved = saved[it.url]) }
         }
         .mapLatest { Result.success(it)}
         .safeCatch{ emit(Result.failure(it)) }
