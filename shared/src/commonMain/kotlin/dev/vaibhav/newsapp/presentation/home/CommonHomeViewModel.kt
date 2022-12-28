@@ -4,19 +4,17 @@ import dev.vaibhav.newsapp.domain.models.Article
 import dev.vaibhav.newsapp.domain.models.Topic
 import dev.vaibhav.newsapp.domain.repo.NewsRepo
 import dev.vaibhav.newsapp.domain.usecases.SaveArticleUseCase
+import dev.vaibhav.newsapp.utils.flows.enableLoading
 import dev.vaibhav.newsapp.utils.flows.toCommonStateFlow
 import dev.vaibhav.newsapp.utils.flows.toStateFlow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onCompletion
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -61,9 +59,7 @@ class CommonHomeViewModel(
     }
 
     private fun fetchAllArticles() = flow { emit(newsRepo.fetchAllArticles()) }
-        .onStart { isLoading.emit(true) }
-        .catch { println(it.stackTraceToString()) }
-        .onCompletion { isLoading.emit(false) }
+        .enableLoading(isLoading)
         .launchIn(viewModelScope)
 
 
@@ -75,10 +71,11 @@ class CommonHomeViewModel(
         saveArticleUseCase(article)
     }
 
-    fun onRefresh() = viewModelScope.launch {
-        isRefreshing.emit(true)
-        if (topic.value == Topic.Headlines) newsRepo.fetchTopHeadlines()
+    fun onRefresh() = flow {
+        val news = if (topic.value == Topic.Headlines) newsRepo.fetchTopHeadlines()
         else newsRepo.fetchNewsByTopic(topic.value)
-        isRefreshing.emit(false)
+        emit(news)
     }
+        .enableLoading(isRefreshing)
+        .launchIn(viewModelScope)
 }
