@@ -11,6 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.launch
 
 class CommonArticleDetailViewModel(
@@ -22,13 +23,15 @@ class CommonArticleDetailViewModel(
 
     private val viewModelScope = scope ?: CoroutineScope(Dispatchers.Main)
 
-    private val _article = MutableStateFlow(article)
+    private val saved = savedNewsRepo.savedArticle.mapLatest { savedList ->
+        savedList.find { it.url == article.url }?.saved
+    }
+
+    private val _article = saved.mapLatest {
+        article.copy(saved = it)
+    }.toStateFlow(viewModelScope, article)
 
     val uiState = _article
-        .combine(savedNewsRepo.savedArticle) { article, saved ->
-            val articleSaved = saved.find { it.url == article.url }?.saved
-            article.copy(saved = articleSaved)
-        }
         .map {
             ArticleDetailScreenState(
                 image = it.urlToImage,
