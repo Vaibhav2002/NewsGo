@@ -1,6 +1,6 @@
 ![](graphics/banners/gif/NewsGO-Banner.gif)
 
-# **News Go** -  Your daily shot of news of on the go 🚀 <br><br>
+# **News Go** -  Your daily shot of news on the go 🚀 <br><br>
 
 ## About NewsGo
 **NewsGo** is a news feed application built using Kotlin Multiplatform Mobile. NewsGo currently offers **Android** and **iOS** Applications with Desktop and Website support to be added soon.
