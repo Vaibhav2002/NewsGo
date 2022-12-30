@@ -33,7 +33,7 @@
 
 |   |   |   |   |
 |---|---|---|---|
-| ![HomeScreen](graphics/screenshots/ios/HomeScreen-iOS.png)  | ![SavedScreen](graphics/screenshots/ios/SavedScreen-iOS.png)  | ![Seacrch Screen](graphics/screenshots/ios/SearchScreen-iOS.png)  | ![ArticleScreen](graphics/screenshots/ios/DetailScreen-IOS.png)
+| ![HomeScreen](graphics/screenshots/iOS/HomeScreen-iOS.png)  | ![SavedScreen](graphics/screenshots/iOS/SavedScreen-iOS.png)  | ![Seacrch Screen](graphics/screenshots/iOS/SearchScreen-iOS.png)  | ![ArticleScreen](graphics/screenshots/iOS/DetailScreen-IOS.png)
 
 
 ## Technical Details 💻
