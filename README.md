@@ -16,6 +16,14 @@
 ## iOS App
 ![iOS Banner](graphics/banners/gif/News-GO-IOS-Banner.gif)
 
+# Application Install
+
+***You can Install and test latest NewsGo app from below 👇***
+
+[![NewsGo](https://img.shields.io/badge/NewsGo✅-APK-red.svg?style=for-the-badge&logo=android)](https://github.com/Vaibhav2002/NewsGo/releases/tag/v1.0.0)
+
+For iOS App, please clone the project and build it, or if possible contribute the installable file 😅
+
 ## App Features
 - Get all the latest news, with options to view from categories like Sports, Tech and many more 
 - Save articles to view them offline
