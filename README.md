@@ -24,6 +24,18 @@
 
 For iOS App, please clone the project and build it, or if possible contribute the installable file 😅
 
+## Setup
+- Clone the repository on your machine.
+- Create account on [News Api](https://newsapi.org) and get your api key
+
+Open Secrets.kt and add your api key
+
+```kotlin
+object Secrets {
+    const val API_KEY = "" // your api key here
+}
+```
+
 ## App Features
 - Get all the latest news, with options to view from categories like Sports, Tech and many more 
 - Save articles to view them offline
@@ -89,6 +101,7 @@ For iOS App, please clone the project and build it, or if possible contribute th
 - [Kotlin DateTime](https://github.com/Kotlin/kotlinx-datetime) - A multiplatform Kotlin library for working with date and time.
 - [SQL Delight](https://cashapp.github.io/sqldelight/1.5.4/) - SQLDelight generates typesafe kotlin APIs from your SQL statements.
 - [Ktor Client](https://ktor.io/docs/getting-started-ktor-client-multiplatform-mobile.html) - Create asynchronous client and server applications. Anything from microservices to multiplatform HTTP client apps in a simple way.
+- [News Api](https://newsapi.org) - Public API to get news data
 
 ## Package Structure
 
