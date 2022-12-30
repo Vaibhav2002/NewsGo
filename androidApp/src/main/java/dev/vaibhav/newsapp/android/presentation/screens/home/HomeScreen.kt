@@ -12,10 +12,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
@@ -25,16 +22,13 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import dev.vaibhav.newsapp.android.presentation.components.AppBar
 import dev.vaibhav.newsapp.android.presentation.components.articlesList
 import dev.vaibhav.newsapp.android.presentation.components.emptyStates.NoResults
 import dev.vaibhav.newsapp.android.presentation.components.topicChips
 import dev.vaibhav.newsapp.domain.models.Article
-import dev.vaibhav.newsapp.domain.models.Topic
 import dev.vaibhav.newsapp.presentation.home.HomeScreenState
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -44,7 +38,7 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
     navigateToDetail: (Article) -> Unit,
     navigateToSavedScreen: () -> Unit,
-    navigateToSearchScreen:()->Unit = {}
+    navigateToSearchScreen: () -> Unit = {}
 ) {
     val state by viewModel.uiState.collectAsState()
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()

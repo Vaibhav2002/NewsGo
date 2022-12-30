@@ -1,7 +1,6 @@
 package dev.vaibhav.newsapp.android.presentation.screens.navigation
 
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -16,7 +15,7 @@ import dev.vaibhav.newsapp.android.presentation.screens.navigation.Screens.Home
 import dev.vaibhav.newsapp.android.presentation.screens.navigation.Screens.SavedArticles
 import dev.vaibhav.newsapp.android.presentation.screens.saved.SavedArticlesScreen
 import dev.vaibhav.newsapp.android.presentation.screens.search.SearchScreen
-import dev.vaibhav.newsapp.android.presentation.util.navigateSafe
+import dev.vaibhav.newsapp.android.util.navigateSafe
 import dev.vaibhav.newsapp.domain.models.Article
 
 @Composable
@@ -63,7 +62,7 @@ fun MainNavHost(
             )
         }
 
-        composable(Screens.Search.route){
+        composable(Screens.Search.route) {
             SearchScreen(
                 modifier = Modifier.fillMaxSize(),
                 navigateToDetail = navigateToDetail,

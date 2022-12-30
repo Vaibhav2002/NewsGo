@@ -26,7 +26,7 @@ class SearchViewModel @Inject constructor(
 
     val uiState = viewModel.uiState
 
-    fun onSearchQueryChange(query:String)=  viewModel.onSearchQueryChanged(query)
+    fun onSearchQueryChange(query: String) = viewModel.onSearchQueryChanged(query)
 
-    fun onSaveToggled(article:Article) = viewModel.onSaveToggled(article)
+    fun onSaveToggled(article: Article) = viewModel.onSaveToggled(article)
 }

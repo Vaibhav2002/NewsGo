@@ -69,5 +69,5 @@ object MainModule {
     @Provides
     fun providesSaveArticleUseCase(
         savedNewsRepo: SavedNewsRepo
-    ):SaveArticleUseCase = SaveArticleUseCase(savedNewsRepo)
+    ): SaveArticleUseCase = SaveArticleUseCase(savedNewsRepo)
 }

@@ -1,15 +1,9 @@
 package dev.vaibhav.newsapp.android.presentation.screens.navigation
 
-import android.net.Uri
-import androidx.core.text.htmlEncode
-import androidx.core.text.parseAsHtml
-import dev.vaibhav.newsapp.android.domain.util.encodeUrl
-import dev.vaibhav.newsapp.android.domain.util.fromHtml
+import dev.vaibhav.newsapp.android.util.encodeUrl
+import dev.vaibhav.newsapp.android.util.fromHtml
 import dev.vaibhav.newsapp.domain.models.Article
 import dev.vaibhav.newsapp.utils.serialize.JsonSerializer
-import dev.vaibhav.newsapp.utils.serialize.Serializer
-import java.net.URLEncoder
-import java.nio.charset.StandardCharsets
 
 sealed class Screens(val route: String) {
     object Home : Screens("homeScreen")

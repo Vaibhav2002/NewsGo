@@ -1,8 +1,6 @@
 package dev.vaibhav.newsapp.android.presentation.screens.home
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Favorite
-import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.FavoriteBorder
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -17,7 +15,7 @@ import dev.vaibhav.newsapp.domain.models.Topic
 fun HomeAppBar(
     scrollBehavior: TopAppBarScrollBehavior,
     topic: Topic,
-    navigateToSearchScreen:()->Unit,
+    navigateToSearchScreen: () -> Unit,
     navigateToSavedScreen: () -> Unit
 ) {
     AppBar(

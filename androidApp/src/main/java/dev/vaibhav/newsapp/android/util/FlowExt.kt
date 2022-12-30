@@ -1,4 +1,4 @@
-package dev.vaibhav.newsapp.android.domain.util
+package dev.vaibhav.newsapp.android.util
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
