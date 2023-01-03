@@ -1,3 +1,10 @@
+buildscript{
+    dependencies {
+//        classpath ("com.google.gms:google-services:4.3.3")
+        classpath ("com.google.firebase:firebase-crashlytics-gradle:2.9.2")
+    }
+}
+
 ext{
     set("hiltVersion", "2.44")
     set("lifecycleVersion", "2.5.1")
@@ -19,7 +26,7 @@ plugins {
     kotlin("plugin.serialization").version(kotlinVersion)
     id("com.google.dagger.hilt.android").version("2.44").apply(false)
     id("com.squareup.sqldelight").version(sqlDelightVersion).apply(false)
-    id("com.google.gms.google-services").version("4.3.13")
+    id("com.google.gms.google-services").version("4.3.13").apply(false)
 }
 
 tasks.register("clean", Delete::class) {

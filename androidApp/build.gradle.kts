@@ -4,6 +4,7 @@ plugins {
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
     id("kotlin-parcelize")
+    id("com.google.firebase.crashlytics")
     id("com.google.gms.google-services")
 }
 
@@ -70,6 +71,7 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:$navVersion")
 
     implementation(platform("com.google.firebase:firebase-bom:31.1.1"))
+    implementation("com.google.firebase:firebase-crashlytics-ktx")
     implementation("com.google.firebase:firebase-analytics-ktx")
 }
 
