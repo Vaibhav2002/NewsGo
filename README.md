@@ -20,7 +20,7 @@
 
 ***You can Install and test latest NewsGo app from below 👇***
 
-[![NewsGo](https://img.shields.io/badge/NewsGo✅-APK-red.svg?style=for-the-badge&logo=android)](https://github.com/Vaibhav2002/NewsGo/releases/tag/v1.0.0)
+[![NewsGo](https://img.shields.io/badge/NewsGo✅-APK-red.svg?style=for-the-badge&logo=android)](https://github.com/Vaibhav2002/NewsGo/releases/tag/v1.0.1)
 
 For iOS App, please clone the project and build it, or if possible contribute the installable file 😅
 
