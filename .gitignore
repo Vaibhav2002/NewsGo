@@ -9,3 +9,4 @@ captures
 local.properties
 xcuserdata
 /shared/src/commonMain/kotlin/dev/vaibhav/newsapp/utils/Secrets.kt
+/androidApp/google-services.json

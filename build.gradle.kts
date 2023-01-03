@@ -19,6 +19,7 @@ plugins {
     kotlin("plugin.serialization").version(kotlinVersion)
     id("com.google.dagger.hilt.android").version("2.44").apply(false)
     id("com.squareup.sqldelight").version(sqlDelightVersion).apply(false)
+    id("com.google.gms.google-services").version("4.3.13")
 }
 
 tasks.register("clean", Delete::class) {
