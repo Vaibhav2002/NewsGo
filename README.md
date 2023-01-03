@@ -27,6 +27,7 @@ For iOS App, please clone the project and build it, or if possible contribute th
 ## Setup
 - Clone the repository on your machine.
 - Create account on [News Api](https://newsapi.org) and get your api key
+- If you want crash and analytics reporting, create a project on Firebase, enable crashlytics and analytics and paste the `google.services.json` file in `androidApp` directory for android else remove the firebase dependencies from android and project gradle files.
 
 Open Secrets.kt and add your api key
 
