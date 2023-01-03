@@ -1,6 +1,6 @@
 package dev.vaibhav.newsapp.android.presentation.screens.navigation
 
-import dev.vaibhav.newsapp.android.util.encodeUrl
+import android.net.Uri
 import dev.vaibhav.newsapp.android.util.fromHtml
 import dev.vaibhav.newsapp.domain.models.Article
 import dev.vaibhav.newsapp.utils.serialize.JsonSerializer
@@ -13,12 +13,10 @@ sealed class Screens(val route: String) {
 
         fun createRoute(article: Article): String {
             return article.copy(
-                urlToImage = article.urlToImage.encodeUrl(),
-                url = article.url.encodeUrl(),
                 content = article.content.fromHtml(),
                 description = article.content.fromHtml()
             ).let {
-                route.replace("{$articleArg}", JsonSerializer.serialize(it))
+                route.replace("{$articleArg}", Uri.encode(JsonSerializer.serialize(it)))
             }
         }
     }
