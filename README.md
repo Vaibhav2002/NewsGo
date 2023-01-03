@@ -20,13 +20,14 @@
 
 ***You can Install and test latest NewsGo app from below 👇***
 
-[![NewsGo](https://img.shields.io/badge/NewsGo✅-APK-red.svg?style=for-the-badge&logo=android)](https://github.com/Vaibhav2002/NewsGo/releases/tag/v1.0.0)
+[![NewsGo](https://img.shields.io/badge/NewsGo✅-APK-red.svg?style=for-the-badge&logo=android)](https://github.com/Vaibhav2002/NewsGo/releases/tag/v1.0.1)
 
 For iOS App, please clone the project and build it, or if possible contribute the installable file 😅
 
 ## Setup
 - Clone the repository on your machine.
 - Create account on [News Api](https://newsapi.org) and get your api key
+- If you want crash and analytics reporting, create a project on Firebase, enable crashlytics and analytics and paste the `google.services.json` file in `androidApp` directory for android else remove the firebase dependencies from android and project gradle files.
 
 Open Secrets.kt and add your api key
 
