@@ -8,6 +8,7 @@ import dev.vaibhav.newsapp.domain.mappers.toArticle
 import dev.vaibhav.newsapp.domain.mappers.toArticles
 import dev.vaibhav.newsapp.domain.models.Article
 import dev.vaibhav.newsapp.domain.models.Topic
+import dev.vaibhav.newsapp.domain.models.allTopics
 import dev.vaibhav.newsapp.domain.repo.NewsRepo
 import dev.vaibhav.newsapp.domain.repo.SavedNewsRepo
 import kotlinx.coroutines.async
@@ -31,20 +32,14 @@ class NewsRepoImpl(
 
     override suspend fun fetchAllArticles() {
         supervisorScope {
-            val headlines = async { fetchTopHeadlines("in") }
-            listOf(Topic.Sports, Topic.Technology, Topic.Politics, Topic.Entertainment)
-                .map { async { fetchNewsByTopic(it) } }
-                .toMutableList().apply { add(headlines) }
+            allTopics
+                .map { async { fetchTopHeadlines("in", it) } }
                 .awaitAll()
         }
     }
 
-    override suspend fun fetchTopHeadlines(country: String) {
-        dataSource.getTopHeadlines(country).also { reSaveArticles(it, Topic.Headlines) }
-    }
-
-    override suspend fun fetchNewsByTopic(topic: Topic) {
-        dataSource.getNewsByQuery(topic.topic).also { reSaveArticles(it, topic) }
+    override suspend fun fetchTopHeadlines(country: String, topic: Topic) {
+        dataSource.getTopHeadlines(country, topic.topic).also { reSaveArticles(it, topic) }
     }
 
     private suspend fun reSaveArticles(articles: List<ArticleDto>, topic: Topic) {

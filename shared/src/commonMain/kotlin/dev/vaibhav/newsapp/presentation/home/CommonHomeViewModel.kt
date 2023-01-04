@@ -72,9 +72,7 @@ class CommonHomeViewModel(
     }
 
     fun onRefresh() = flow {
-        val news = if (topic.value == Topic.Headlines) newsRepo.fetchTopHeadlines()
-        else newsRepo.fetchNewsByTopic(topic.value)
-        emit(news)
+        emit(newsRepo.fetchTopHeadlines(topic = topic.value))
     }
         .enableLoading(isRefreshing)
         .launchIn(viewModelScope)

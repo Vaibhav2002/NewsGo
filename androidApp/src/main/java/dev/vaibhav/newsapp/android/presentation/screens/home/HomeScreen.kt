@@ -1,13 +1,10 @@
 @file:OptIn(
     ExperimentalMaterialApi::class,
-    ExperimentalAnimationApi::class,
     ExperimentalFoundationApi::class
 )
 
 package dev.vaibhav.newsapp.android.presentation.screens.home
 
-import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -53,7 +50,7 @@ fun HomeScreen(
             )
         },
     ) {
-        HomeScreenContent(
+        HomeScreenRefreshableContent(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(it),
@@ -65,7 +62,7 @@ fun HomeScreen(
 }
 
 @Composable
-private fun HomeScreenContent(
+private fun HomeScreenRefreshableContent(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel,
     state: HomeScreenState,
@@ -75,37 +72,26 @@ private fun HomeScreenContent(
         refreshing = state.isRefreshing,
         onRefresh = viewModel::onRefresh
     )
-    AnimatedContent(
-        targetState = state.articles.isEmpty(),
-        modifier = modifier,
-        contentAlignment = Alignment.Center,
+    Box(
+        modifier = modifier.pullRefresh(pullRefreshState)
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .pullRefresh(pullRefreshState)
-        ) {
-            if (it)
-                NoResults(modifier = Modifier.align(Alignment.Center))
-            else
-                HomeScreenSuccessContent(
-                    modifier = Modifier.fillMaxSize(),
-                    state = state,
-                    viewModel = viewModel,
-                    navigateToDetail = navigateToDetail
-                )
-            PullRefreshIndicator(
-                refreshing = state.isRefreshing,
-                state = pullRefreshState,
-                modifier = Modifier.align(Alignment.TopCenter),
-            )
-        }
+        HomeScreenContent(
+            modifier = Modifier.fillMaxSize(),
+            state = state,
+            viewModel = viewModel,
+            navigateToDetail = navigateToDetail
+        )
+        PullRefreshIndicator(
+            refreshing = state.isRefreshing,
+            state = pullRefreshState,
+            modifier = Modifier.align(Alignment.TopCenter),
+        )
     }
 }
 
 @ExperimentalFoundationApi
 @Composable
-private fun HomeScreenSuccessContent(
+private fun HomeScreenContent(
     modifier: Modifier = Modifier,
     state: HomeScreenState,
     viewModel: HomeViewModel,
@@ -114,11 +100,12 @@ private fun HomeScreenSuccessContent(
     LazyColumn(
         modifier = modifier,
         contentPadding = PaddingValues(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
         item {
             LazyRow(
-                modifier = modifier,
+                modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 topicChips(
@@ -128,11 +115,13 @@ private fun HomeScreenSuccessContent(
                 )
             }
         }
-        articlesList(
-            articles = state.articles,
-            onArticleClick = navigateToDetail,
-            onArticleSaveClick = viewModel::onSaveClick
-        )
+        if (state.articles.isEmpty())
+            item { NoResults(modifier = Modifier.padding(top = 32.dp)) }
+        else
+            articlesList(
+                articles = state.articles,
+                onArticleClick = navigateToDetail,
+                onArticleSaveClick = viewModel::onSaveClick
+            )
     }
 }
-
