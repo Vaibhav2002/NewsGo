@@ -33,7 +33,7 @@ class NewsRepoImpl(
     override suspend fun fetchAllArticles() {
         supervisorScope {
             allTopics
-                .map { async { fetchTopHeadlines("in", it) } }
+                .map { async { fetchTopHeadlines("in", it as Topic) } }
                 .awaitAll()
         }
     }

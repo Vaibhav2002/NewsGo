@@ -18,18 +18,23 @@ extension HomeScreen{
             saveArticleUseCase: AppModule.shared.saveArticleUseCase,
             scope:nil
         )
-        
         @Published var uiState = HomeScreenState(
             articles: [],
-            topic: Topic.Headlines(),
+            topic: Topic.Headlines.shared,
             isLoading: false,
             error: nil,
             isRefreshing: false
         )
         
-        let topics = [Topic.Headlines(), Topic.Sports(),
-                      Topic.Politics(),Topic.Entertainment(),
-                      Topic.Technology()]
+        let topics = [
+            Topic.Headlines.shared,
+            Topic.Sports.shared,
+            Topic.Business.shared,
+            Topic.Technology.shared,
+            Topic.Health.shared,
+            Topic.Science.shared,
+            Topic.Entertainment.shared
+        ]
         
         private var disposableHandle:DisposableHandle?
         
