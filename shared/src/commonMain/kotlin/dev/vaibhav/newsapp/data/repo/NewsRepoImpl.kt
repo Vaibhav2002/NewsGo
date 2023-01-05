@@ -3,6 +3,7 @@ package dev.vaibhav.newsapp.data.repo
 import dev.vaibhav.newsapp.data.local.ArticleLocalDataSource
 import dev.vaibhav.newsapp.data.models.mapper.toArticlesEntities
 import dev.vaibhav.newsapp.data.models.remote.ArticleDto
+import dev.vaibhav.newsapp.data.remote.dataSource.location.LocationDataSource
 import dev.vaibhav.newsapp.data.remote.dataSource.news.NewsRemoteDataSource
 import dev.vaibhav.newsapp.domain.mappers.toArticle
 import dev.vaibhav.newsapp.domain.mappers.toArticles
@@ -33,13 +34,13 @@ class NewsRepoImpl(
     override suspend fun fetchAllArticles() {
         supervisorScope {
             allTopics
-                .map { async { fetchTopHeadlines("in", it as Topic) } }
+                .map { async { fetchTopHeadlines(it as Topic) } }
                 .awaitAll()
         }
     }
 
-    override suspend fun fetchTopHeadlines(country: String, topic: Topic) {
-        dataSource.getTopHeadlines(country, topic.topic).also { reSaveArticles(it, topic) }
+    override suspend fun fetchTopHeadlines(topic: Topic) {
+        dataSource.getTopHeadlines(getCountry(), topic.topic).also { reSaveArticles(it, topic) }
     }
 
     private suspend fun reSaveArticles(articles: List<ArticleDto>, topic: Topic) {
@@ -56,4 +57,6 @@ class NewsRepoImpl(
     override suspend fun searchNews(query: String): List<Article> {
         return dataSource.getNewsByQuery(query).map { it.toArticle() }
     }
+
+    private suspend fun getCountry() = LocationDataSource.fetchLocation()?.countryCode?.lowercase() ?: "in"
 }
