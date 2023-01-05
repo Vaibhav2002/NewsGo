@@ -2,6 +2,7 @@ package dev.vaibhav.newsapp.presentation.home
 
 import dev.vaibhav.newsapp.domain.models.Article
 import dev.vaibhav.newsapp.domain.models.Topic
+import dev.vaibhav.newsapp.domain.models.allTopics
 
 data class HomeScreenState(
     val articles: List<Article> = emptyList(),
@@ -10,8 +11,5 @@ data class HomeScreenState(
     val error: String? = null,
     val isRefreshing: Boolean = false
 ) {
-    val topics = listOf(
-        Topic.Headlines, Topic.Sports, Topic.Politics,
-        Topic.Entertainment, Topic.Technology
-    )
+    val topics = allTopics
 }

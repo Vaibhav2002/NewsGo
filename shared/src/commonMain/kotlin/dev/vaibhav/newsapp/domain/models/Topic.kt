@@ -11,7 +11,7 @@ sealed class Topic(val topic: String) {
     object Sports : Topic("Sports")
 
     @Serializable
-    object Politics : Topic("Politics")
+    object Business : Topic("Business")
 
     @Serializable
     object Technology : Topic("Technology")
@@ -19,14 +19,32 @@ sealed class Topic(val topic: String) {
     @Serializable
     object Entertainment : Topic("Entertainment")
 
+    @Serializable
+    object Health : Topic("Health")
+
+    @Serializable
+    object Science : Topic("Science")
+
 
     companion object {
         fun fromTopic(topic: String): Topic = when (topic) {
             Headlines.topic -> Headlines
             Sports.topic -> Sports
-            Politics.topic -> Politics
+            Business.topic -> Business
             Technology.topic -> Technology
+            Health.topic -> Health
+            Science.topic -> Science
             else -> Entertainment
         }
     }
 }
+
+val allTopics = listOf(
+    Topic.Headlines,
+    Topic.Sports,
+    Topic.Business,
+    Topic.Technology,
+    Topic.Health,
+    Topic.Science,
+    Topic.Entertainment
+)
