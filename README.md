@@ -1,6 +1,6 @@
 ![](graphics/banners/gif/NewsGO-Banner.gif)
 
-# **News Go** -  Your daily shot of news on the go 🚀 <br><br>
+# **News Go** -  Your daily shot of news on the go 🚀 <br>
 
 ## About NewsGo
 **NewsGo** is a news feed application built using Kotlin Multiplatform Mobile. NewsGo currently offers **Android** and **iOS** Applications with Desktop and Website support to be added soon.
@@ -8,7 +8,7 @@
 - Material You based theming with dynamic color support in Android App
 - Support for both dark and light themes. 🌗
 - Clean Code Quality with best practices, great for learning
-<br>
+- World Wide News Support
 <br>
 
 ## Android App 
@@ -41,6 +41,7 @@ object Secrets {
 - Get all the latest news, with options to view from categories like Sports, Tech and many more 
 - Save articles to view them offline
 - Search from millions of articles and read whatever you want
+- Read News from all around the world with Country Specific News
 
 ## ScreenShots 📷
 
