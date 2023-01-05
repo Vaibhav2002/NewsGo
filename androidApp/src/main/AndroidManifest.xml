@@ -8,6 +8,7 @@
             android:roundIcon="@mipmap/app_logo_round"
             android:label="NewsGo"
             android:name=".NewsApp"
+            android:usesCleartextTraffic="true"
             android:allowBackup="false"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
